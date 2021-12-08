@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { PagesComponent } from './pages.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { LoginComponent } from './login/login.component';
@@ -17,7 +19,8 @@ import { PagesRoutingModule } from './pages.routing';
   imports: [
     CommonModule,
     RouterModule,
-    PagesRoutingModule
+    PagesRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class PagesModule { }
