@@ -1,4 +1,9 @@
 .invalid-field {
     font-size: small;
-    color: #f44335; 
+    color: #f44335;
+}
+
+.center {
+    justify-content: center;
+    width: 100%;
 }

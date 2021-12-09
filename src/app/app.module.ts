@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
@@ -18,7 +19,7 @@ import { PagesModule } from './pages/pages.module';
     PagesModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, JwtHelperService],
   bootstrap: [
     AppComponent,
   ]

@@ -7,6 +7,7 @@ import { ClientesComponent } from './clientes/clientes.component';
 import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
 import { PagesRoutingModule } from './pages.routing';
+import { RegisterComponent } from './register/register.component';
 
 
 
@@ -14,7 +15,8 @@ import { PagesRoutingModule } from './pages.routing';
   declarations: [
     PagesComponent,
     ClientesComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     CommonModule,

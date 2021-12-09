@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthUser } from 'src/app/interfaces/authUser';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -20,26 +21,51 @@ export class LoginComponent implements OnInit {
 
   public errorMessages = {
     username: '',
-    password: ''
+    password: '',
+    backendResponseMessage: '',
   };
 
   constructor(private authService: AuthService, 
-    private fb: FormBuilder) { }
+              private fb: FormBuilder,
+              private router: Router) { }
 
   ngOnInit(): void {
-    // this.login();
   }
 
-  login() {
+  login(username: String, password: String, remember: boolean) {
     const authUserData: AuthUser = {
-      "username": "christiandionisio@gmail.com",
-      "password": "123456",
-      "remember": false
+      username,
+      password,
+      remember
     };
 
-    this.authService.login(authUserData).subscribe( response => {
-      console.log(response);
-    });
+    this.authService.login(authUserData).subscribe({
+      next: this.handleLoginResponse.bind(this),
+      error: this.handleLoginError.bind(this)
+   });
+   
+  }
+
+  handleLoginResponse(response: any) {
+    const token = response.token;
+    localStorage.setItem('token', token);
+
+    this.isSubmited =false;
+    this.cleanErrorMessages();
+    this.cleanFormValues();
+
+    this.router.navigateByUrl('/dashboard');
+
+  }
+
+  handleLoginError(response: any) {
+
+    if (response.status === 401) {
+      this.errorMessages.backendResponseMessage = 'Credenciales incorrectas';
+    } else {
+      this.errorMessages.backendResponseMessage = 'Error técnico, debe contactarse con el administrador'
+    }
+    
   }
 
   onSubmit() {
@@ -52,9 +78,9 @@ export class LoginComponent implements OnInit {
 
     } else {
 
-      this.isSubmited =false;
-      this.cleanErrorMessages();
-      this.cleanFormValues();
+      this.login(this.loginForm.controls['username'].value, 
+        this.loginForm.controls['password'].value, 
+        this.loginForm.controls['remember'].value);
 
     }
   }
@@ -87,7 +113,8 @@ export class LoginComponent implements OnInit {
   cleanErrorMessages() {
     this.errorMessages = {
       username: '',
-      password: ''
+      password: '',
+      backendResponseMessage: ''
     };
   }
 
