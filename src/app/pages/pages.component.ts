@@ -6,6 +6,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PagesComponent implements OnInit {
 
+  public listDashboard = [
+    {
+      name: 'Clientes',
+      icon: 'people_alt',
+      path: 'clientes'
+    },
+    {
+      name: 'Productos',
+      icon: 'tapas',
+      path: 'productos'
+    },
+  ];
+
   constructor() { }
 
   ngOnInit(): void {

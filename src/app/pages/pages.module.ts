@@ -8,6 +8,8 @@ import { LoginComponent } from './login/login.component';
 import { RouterModule } from '@angular/router';
 import { PagesRoutingModule } from './pages.routing';
 import { RegisterComponent } from './register/register.component';
+import { ComponentsModule } from '../components/components.module';
+import { ProductosComponent } from './productos/productos.component';
 
 
 
@@ -16,13 +18,15 @@ import { RegisterComponent } from './register/register.component';
     PagesComponent,
     ClientesComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProductosComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     PagesRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ComponentsModule
   ]
 })
 export class PagesModule { }
