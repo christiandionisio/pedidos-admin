@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthUser } from 'src/app/interfaces/authUser';
+import { RegisterUser } from 'src/app/interfaces/register-user';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
     dni: ['', [Validators.required, Validators.minLength(8)]],
     correo: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
-    terminos: [true],
+    terminos: [false],
   });
 
   public errorMessages = {
@@ -28,6 +28,7 @@ export class RegisterComponent implements OnInit {
     dni: '',
     correo: '',
     password: '',
+    terminos: '',
     backendResponseMessage: '',
   };
 
@@ -38,14 +39,9 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  login(username: String, password: String, remember: boolean) {
-    const authUserData: AuthUser = {
-      username,
-      password,
-      remember
-    };
+  register(registerUserData: RegisterUser) {
 
-    this.authService.login(authUserData).subscribe({
+    this.authService.register(registerUserData).subscribe({
       next: this.handleLoginResponse.bind(this),
       error: this.handleLoginError.bind(this)
    });
@@ -53,9 +49,7 @@ export class RegisterComponent implements OnInit {
   }
 
   handleLoginResponse(response: any) {
-    const token = response.token;
-    localStorage.setItem('token', token);
-
+    // console.log(response);
     this.isSubmited =false;
     this.cleanErrorMessages();
     this.cleanFormValues();
@@ -68,32 +62,46 @@ export class RegisterComponent implements OnInit {
 
     if (response.status === 401) {
       this.errorMessages.backendResponseMessage = 'Credenciales incorrectas';
-    } else {
-      this.errorMessages.backendResponseMessage = 'Error técnico, debe contactarse con el administrador'
+      return;
     }
+
+    if (response.status === 409) {
+      console.log(response);
+      this.errorMessages.backendResponseMessage = response.error.mensaje;
+      return;
+    }
+    
+    this.errorMessages.backendResponseMessage = 'Error técnico, debe contactarse con el administrador';
     
   }
 
   onSubmit() {
     console.log("Submit");
 
-    
-
-    if (this.registerForm.invalid) {
+    if (this.registerForm.invalid || !this.registerForm.controls['terminos'].value) {
       console.log('INVALID');
       this.setErrorMessage();
       this.isSubmited = true;
 
     } else {
 
-      // this.login(this.loginForm.controls['username'].value, 
-      //   this.loginForm.controls['password'].value, 
-      //   this.loginForm.controls['remember'].value);
+      const authRegisterData: RegisterUser = {
+        nombres: this.registerForm.controls['nombres'].value,
+        apellidos: this.registerForm.controls['apellidos'].value,
+        dni: this.registerForm.controls['dni'].value,
+        correo: this.registerForm.controls['correo'].value,
+        password: this.registerForm.controls['password'].value,
+        terminos: this.registerForm.controls['terminos'].value
+      };
+
+      this.register(authRegisterData);
 
     }
   }
 
   setErrorMessage() {
+
+    this.cleanErrorMessages();
 
     if (this.registerForm.controls['nombres'].errors != null) {
       const typeValidation: any = this.registerForm.controls['nombres'].errors;
@@ -149,6 +157,9 @@ export class RegisterComponent implements OnInit {
       
     }
 
+    if (!this.registerForm.controls['terminos'].value) {
+      this.errorMessages.terminos = 'Debe aceptar los terminos y condiciones';
+    }
     
   }
 
@@ -159,14 +170,18 @@ export class RegisterComponent implements OnInit {
       dni: '',
       correo: '',
       password: '',
+      terminos: '',
       backendResponseMessage: '',
     };
   }
 
   cleanFormValues() {
-    // this.loginForm.controls['username'].setValue('');
-    // this.loginForm.controls['password'].setValue('');
-    // this.loginForm.controls['remember'].setValue(false);
+    this.registerForm.controls['nombres'].setValue('');
+    this.registerForm.controls['apellidos'].setValue('');
+    this.registerForm.controls['dni'].setValue('');
+    this.registerForm.controls['correo'].setValue('');
+    this.registerForm.controls['password'].setValue('');
+    this.registerForm.controls['terminos'].setValue(false);
   }
 
   onlyNumber(event: any) {

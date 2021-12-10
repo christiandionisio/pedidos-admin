@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { AuthUser } from '../interfaces/authUser';
 import { tap } from 'rxjs';
+import { RegisterUser } from '../interfaces/register-user';
 
 const BASE_URL = environment.base_url;
 
@@ -19,7 +20,18 @@ export class AuthService {
     return this.http.post(`${BASE_URL}/auth/login`, authUserData)
       .pipe(
         tap( (response: any) => {
-          // TODO: Guardar token en localstorage
+          const token = response.token;
+          localStorage.setItem('token', token);
+        })
+      );
+  }
+
+  register(registerUserData: RegisterUser) {
+    return this.http.post(`${BASE_URL}/auth/register`, registerUserData)
+      .pipe(
+        tap( (response: any) => {
+          const token = response.token;
+          localStorage.setItem('token', token);
         })
       );
   }

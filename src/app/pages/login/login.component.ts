@@ -47,9 +47,6 @@ export class LoginComponent implements OnInit {
   }
 
   handleLoginResponse(response: any) {
-    const token = response.token;
-    localStorage.setItem('token', token);
-
     this.isSubmited =false;
     this.cleanErrorMessages();
     this.cleanFormValues();

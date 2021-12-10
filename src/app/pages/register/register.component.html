@@ -66,7 +66,16 @@
                         <label class="form-check-label" for="flexCheckDefault">
                         I agree the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
                         </label>
+
+                        <div class="input-group invalid-field" *ngIf="!this.registerForm.controls['terminos'].value">
+                            {{errorMessages.terminos}}
+                        </div>
                     </div>
+
+                    <div class="input-group invalid-field center" *ngIf="errorMessages.backendResponseMessage != ''">
+                        {{errorMessages.backendResponseMessage}}
+                    </div>
+
                     <div class="text-center">
                         <button type="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Sign Up</button>
                     </div>

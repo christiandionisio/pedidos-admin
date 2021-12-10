@@ -3,6 +3,6 @@ export interface RegisterUser {
     apellidos: String;
     dni: String;
     correo: String;
-    passoword: String;
+    password: String;
     terminos: boolean;
 }
