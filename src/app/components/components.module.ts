@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { ModalProductoComponent } from './modal-producto/modal-producto.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -13,12 +14,13 @@ import { ModalProductoComponent } from './modal-producto/modal-producto.componen
     ModalProductoComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ],
   exports: [
     NavbarComponent,
     FooterComponent,
-    ModalProductoComponent
+    ModalProductoComponent,
   ]
 })
 export class ComponentsModule { }

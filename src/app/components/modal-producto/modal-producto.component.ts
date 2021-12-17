@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Producto } from 'src/app/interfaces/productos';
 import { ProductosService } from 'src/app/services/productos.service';
@@ -10,14 +10,16 @@ import { ProductosService } from 'src/app/services/productos.service';
 })
 export class ModalProductoComponent implements OnInit {
 
+  @ViewChild('modal', {static: true}) closebutton!: ElementRef;
+
   public isSubmited: boolean = false;
 
   public registerForm = this.fb.group({
     nombre: ['', [Validators.required]],
     descripcion: ['', Validators.required],
     tipo: ['', Validators.required],
-    precio: ['', Validators.required],
-    stock: ['', Validators.required],
+    precio: [undefined, [Validators.min(0.01), Validators.required]],
+    stock: [undefined, Validators.required],
   });
 
   public errorMessages = {
@@ -48,6 +50,8 @@ export class ModalProductoComponent implements OnInit {
     this.cleanErrorMessages();
     this.cleanFormValues();
 
+    this.closebutton.nativeElement.click();
+
   }
 
   handleLoginError(response: any) {
@@ -62,6 +66,7 @@ export class ModalProductoComponent implements OnInit {
 
   onSubmit() {
     console.log("Submit");
+    console.log(this.registerForm.value);
 
     if (this.registerForm.invalid) {
 
@@ -70,9 +75,7 @@ export class ModalProductoComponent implements OnInit {
 
     } else {
 
-      // this.registerForm(this.loginForm.controls['username'].value, 
-      //   this.loginForm.controls['password'].value, 
-      //   this.loginForm.controls['remember'].value);
+      this.registarProducto(this.registerForm.value); 
 
     }
   }
@@ -108,9 +111,13 @@ export class ModalProductoComponent implements OnInit {
 
     if (this.registerForm.controls['precio'].errors != null) {
       const precioValidation: any = this.registerForm.controls['precio'].errors;
-      
+
       if (Object.keys(precioValidation)[0] === 'required') {
-        this.errorMessages.precio = 'El precio es obligatorio';
+        this.errorMessages.precio = 'El precio es requerido';
+      }
+      
+      if (Object.keys(precioValidation)[0] === 'min') {
+        this.errorMessages.precio = 'El precio debe ser mayor o igual a 0.01';
       }
       
     }

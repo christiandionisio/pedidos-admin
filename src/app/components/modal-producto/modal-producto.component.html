@@ -1,38 +1,65 @@
-<div class="modal fade" id="modalProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle"
+<div class="modal fade" #modal id="modalProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h6 class="modal-title font-weight-normal" id="exampleModalLabel">Agregar Producto</h6>
             </div>
-            <div class="modal-body">
-                <form>
-                    <div class="input-group input-group-outline my-3">
+            <form role="form" class="text-start" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <div class="modal-body">
+                    <div [ngClass]="registerForm.controls['nombre'].invalid && isSubmited ? 
+                        'input-group input-group-outline my-3 is-invalid' : 
+                        'input-group input-group-outline my-3'">
                         <label class="form-label">Nombre</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" formControlName="nombre">
+                        <div class="input-group invalid-field" *ngIf="registerForm.controls['nombre'].invalid && isSubmited">
+                            {{errorMessages.nombre}}
+                        </div>
                     </div>
-                    <div class="input-group input-group-outline my-3">
+                    <div [ngClass]="registerForm.controls['descripcion'].invalid && isSubmited ? 
+                        'input-group input-group-outline my-3 is-invalid' : 
+                        'input-group input-group-outline my-3'">
                         <label class="form-label">Descripción</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" formControlName="descripcion">
+                        <div class="input-group invalid-field" *ngIf="registerForm.controls['descripcion'].invalid && isSubmited">
+                            {{errorMessages.descripcion}}
+                        </div>
                     </div>
-                    <div class="input-group input-group-outline my-3">
+                    <div [ngClass]="registerForm.controls['tipo'].invalid && isSubmited ? 
+                        'input-group input-group-outline my-3 is-invalid' : 
+                        'input-group input-group-outline my-3'">
                         <label class="form-label">Tipo</label>
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" formControlName="tipo">
+                        <div class="input-group invalid-field" *ngIf="registerForm.controls['tipo'].invalid && isSubmited">
+                            {{errorMessages.tipo}}
+                        </div>
                     </div>
-                    <div class="input-group input-group-outline my-3">
+                    <div [ngClass]="registerForm.controls['precio'].invalid && isSubmited ? 
+                        'input-group input-group-outline my-3 is-invalid' : 
+                        'input-group input-group-outline my-3'">
                         <label class="form-label">Precio</label>
-                        <input type="text" class="form-control">
+                        <input type="number" class="form-control" formControlName="precio" min="0">
+                        <div class="input-group invalid-field" *ngIf="registerForm.controls['precio'].invalid && isSubmited">
+                            {{errorMessages.precio}}
+                        </div>
                     </div>
-                    <div class="input-group input-group-outline my-3">
+                    <div [ngClass]="registerForm.controls['stock'].invalid && isSubmited ? 
+                        'input-group input-group-outline my-3 is-invalid' : 
+                        'input-group input-group-outline my-3'">
                         <label class="form-label">Stock</label>
-                        <input type="text" class="form-control">
+                        <input type="number" class="form-control" formControlName="stock" min="0">
+                        <div class="input-group invalid-field" *ngIf="registerForm.controls['stock'].invalid && isSubmited">
+                            {{errorMessages.stock}}
+                        </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn bg-gradient-primary">Send message</button>
-            </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn bg-gradient-secondary"
+                            data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn bg-gradient-primary" >Registrar</button>
+                    </div>
+                </div>
+            </form>
         </div>
+
     </div>
 </div>
