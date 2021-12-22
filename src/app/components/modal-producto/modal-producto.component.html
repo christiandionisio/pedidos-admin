@@ -1,62 +1,85 @@
 <div class="modal fade" #modal id="modalProducto" tabindex="-1" role="dialog" aria-labelledby="exampleModalMessageTitle"
     aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h6 class="modal-title font-weight-normal" id="exampleModalLabel">Agregar Producto</h6>
             </div>
             <form role="form" class="text-start" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                 <div class="modal-body">
-                    <div [ngClass]="registerForm.controls['nombre'].invalid && isSubmited ? 
-                        'input-group input-group-outline my-3 is-invalid' : 
-                        'input-group input-group-outline my-3'">
-                        <label class="form-label">Nombre</label>
-                        <input type="text" class="form-control" formControlName="nombre">
-                        <div class="input-group invalid-field" *ngIf="registerForm.controls['nombre'].invalid && isSubmited">
-                            {{errorMessages.nombre}}
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="card bg-dark text-white border-0">
+                                <img class="card-img" *ngIf="url" [src]="url">
+                                <img class="card-img" *ngIf="!url" src="./../../../assets/img/no-image.jpeg">
+                            </div>
+                            <div class="input-group input-group-outline my-1">
+                                <input #fileInput type="file" hidden (change)="onChange($event)" accept="image/*"> 
+                            </div>
+                            <button type="button" class="btn btn-outline-secondary" (click)="fileInput.click()">
+                                <i class="fas fa-image fa-lg"></i> Seleccionar Archivo
+                            </button>
+                            {{(fileProductImage != null) ? fileProductImage.name : ''}}
+                        </div>
+                        <div class="col-md">
+                            <div [ngClass]="registerForm.controls['nombre'].invalid && isSubmited ? 
+                                'input-group input-group-outline my-3 is-invalid' : 
+                                'input-group input-group-outline my-3'">
+                                <label class="form-label">Nombre</label>
+                                <input type="text" class="form-control" formControlName="nombre">
+                                <div class="input-group invalid-field"
+                                    *ngIf="registerForm.controls['nombre'].invalid && isSubmited">
+                                    {{errorMessages.nombre}}
+                                </div>
+                            </div>
+                            <div [ngClass]="registerForm.controls['descripcion'].invalid && isSubmited ? 
+                                'input-group input-group-outline my-3 is-invalid' : 
+                                'input-group input-group-outline my-3'">
+                                <label class="form-label">Descripción</label>
+                                <input type="text" class="form-control" formControlName="descripcion">
+                                <div class="input-group invalid-field"
+                                    *ngIf="registerForm.controls['descripcion'].invalid && isSubmited">
+                                    {{errorMessages.descripcion}}
+                                </div>
+                            </div>
+                            <div [ngClass]="registerForm.controls['tipo'].invalid && isSubmited ? 
+                                'input-group input-group-outline my-3 is-invalid' : 
+                                'input-group input-group-outline my-3'">
+                                <label class="form-label">Tipo</label>
+                                <input type="text" class="form-control" formControlName="tipo">
+                                <div class="input-group invalid-field"
+                                    *ngIf="registerForm.controls['tipo'].invalid && isSubmited">
+                                    {{errorMessages.tipo}}
+                                </div>
+                            </div>
+                            <div [ngClass]="registerForm.controls['precio'].invalid && isSubmited ? 
+                                'input-group input-group-outline my-3 is-invalid' : 
+                                'input-group input-group-outline my-3'">
+                                <label class="form-label">Precio</label>
+                                <input type="number" class="form-control" formControlName="precio" min="0">
+                                <div class="input-group invalid-field"
+                                    *ngIf="registerForm.controls['precio'].invalid && isSubmited">
+                                    {{errorMessages.precio}}
+                                </div>
+                            </div>
+                            <div [ngClass]="registerForm.controls['stock'].invalid && isSubmited ? 
+                                'input-group input-group-outline my-3 is-invalid' : 
+                                'input-group input-group-outline my-3'">
+                                <label class="form-label">Stock</label>
+                                <input type="number" class="form-control" formControlName="stock" min="0">
+                                <div class="input-group invalid-field"
+                                    *ngIf="registerForm.controls['stock'].invalid && isSubmited">
+                                    {{errorMessages.stock}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn bg-gradient-secondary"
+                                data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn bg-gradient-primary">Registrar</button>
                         </div>
                     </div>
-                    <div [ngClass]="registerForm.controls['descripcion'].invalid && isSubmited ? 
-                        'input-group input-group-outline my-3 is-invalid' : 
-                        'input-group input-group-outline my-3'">
-                        <label class="form-label">Descripción</label>
-                        <input type="text" class="form-control" formControlName="descripcion">
-                        <div class="input-group invalid-field" *ngIf="registerForm.controls['descripcion'].invalid && isSubmited">
-                            {{errorMessages.descripcion}}
-                        </div>
-                    </div>
-                    <div [ngClass]="registerForm.controls['tipo'].invalid && isSubmited ? 
-                        'input-group input-group-outline my-3 is-invalid' : 
-                        'input-group input-group-outline my-3'">
-                        <label class="form-label">Tipo</label>
-                        <input type="text" class="form-control" formControlName="tipo">
-                        <div class="input-group invalid-field" *ngIf="registerForm.controls['tipo'].invalid && isSubmited">
-                            {{errorMessages.tipo}}
-                        </div>
-                    </div>
-                    <div [ngClass]="registerForm.controls['precio'].invalid && isSubmited ? 
-                        'input-group input-group-outline my-3 is-invalid' : 
-                        'input-group input-group-outline my-3'">
-                        <label class="form-label">Precio</label>
-                        <input type="number" class="form-control" formControlName="precio" min="0">
-                        <div class="input-group invalid-field" *ngIf="registerForm.controls['precio'].invalid && isSubmited">
-                            {{errorMessages.precio}}
-                        </div>
-                    </div>
-                    <div [ngClass]="registerForm.controls['stock'].invalid && isSubmited ? 
-                        'input-group input-group-outline my-3 is-invalid' : 
-                        'input-group input-group-outline my-3'">
-                        <label class="form-label">Stock</label>
-                        <input type="number" class="form-control" formControlName="stock" min="0">
-                        <div class="input-group invalid-field" *ngIf="registerForm.controls['stock'].invalid && isSubmited">
-                            {{errorMessages.stock}}
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn bg-gradient-secondary"
-                            data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" class="btn bg-gradient-primary" >Registrar</button>
-                    </div>
+
                 </div>
             </form>
         </div>

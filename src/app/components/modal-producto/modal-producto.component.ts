@@ -10,6 +10,9 @@ import { ProductosService } from 'src/app/services/productos.service';
 })
 export class ModalProductoComponent implements OnInit {
 
+  public url: any;
+  public fileProductImage: any = null;
+
   @ViewChild('modal', {static: true}) closebutton!: ElementRef;
 
   public isSubmited: boolean = false;
@@ -150,6 +153,26 @@ export class ModalProductoComponent implements OnInit {
     this.registerForm.controls['tipo'].setValue('');
     this.registerForm.controls['precio'].setValue('');
     this.registerForm.controls['stock'].setValue('');
+  }
+
+  onChange(event: any) {
+    var reader = new FileReader();
+
+    if (event.target.files.length > 0) {
+      this.fileProductImage = event.target.files[0];
+      console.log(this.fileProductImage);
+    }
+
+    reader.onload = (event: any) => {
+      this.url = event.target.result;
+    };
+
+    reader.onerror = (event: any) => {
+      console.log("File could not be read: " + event.target.error.code);
+    };
+
+    reader.readAsDataURL(event.target.files[0]);
+
   }
 
 }

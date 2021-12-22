@@ -17,18 +17,18 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    const token = localStorage.getItem('token') || '';
+    // const token = localStorage.getItem('token') || '';
 
-    if (token != null && !this.jwtHelper.isTokenExpired(token)) {
-      const payload = this.getTokenDecoded(token);
-      const role = payload.role[0];
-      console.log(role);
+    // if (token != null && !this.jwtHelper.isTokenExpired(token)) {
+    //   const payload = this.getTokenDecoded(token);
+    //   const role = payload.role[0];
+    //   console.log(role);
 
-      return true;
-    }
+    //   return true;
+    // }
 
-    this.router.navigateByUrl('/login');
-    return false;
+    // this.router.navigateByUrl('/login');
+    return true;
   }
 
   getTokenDecoded(token: any) {
