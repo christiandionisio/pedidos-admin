@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="card-body px-0 pb-2">
-                <div class="table-responsive">
+                <div class="table-responsive" *ngIf="listProductos.length > 0">
                     <table class="table align-items-center mb-0">
                         <thead>
                             <tr>
@@ -86,6 +86,16 @@
                             </li>
                         </ul>
                     </nav>
+                </div>
+                <div *ngIf="listProductos.length === 0" class="card-body">
+                    <div class="alert alert-warning" role="alert">
+                        <span class="alert-icon align-middle">
+                          <span class="material-icons text-md">
+                            error_outline
+                          </span>
+                        </span>
+                        <span class="alert-text"><strong>Warning!</strong> This is a warning alert—check it out that has an icon too!</span>
+                    </div>
                 </div>
             </div>
         </div>

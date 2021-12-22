@@ -160,7 +160,6 @@ export class ModalProductoComponent implements OnInit {
 
     if (event.target.files.length > 0) {
       this.fileProductImage = event.target.files[0];
-      console.log(this.fileProductImage);
     }
 
     reader.onload = (event: any) => {
