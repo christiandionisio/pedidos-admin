@@ -10,8 +10,8 @@
                     <div class="row">
                         <div class="col-md">
                             <div class="card bg-dark text-white border-0">
-                                <img class="card-img" *ngIf="url" [src]="url">
-                                <img class="card-img" *ngIf="!url" src="./../../../assets/img/no-image.jpeg">
+                                <img class="card-img" *ngIf="urlImage" [src]="urlImage">
+                                <img class="card-img" *ngIf="!urlImage" src="./../../../assets/img/no-image.jpeg">
                             </div>
                             <div class="input-group input-group-outline my-1">
                                 <input #fileInput type="file" hidden (change)="onChange($event)" accept="image/*"> 

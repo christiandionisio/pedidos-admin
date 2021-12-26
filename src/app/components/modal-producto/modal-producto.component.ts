@@ -10,7 +10,7 @@ import { ProductosService } from 'src/app/services/productos.service';
 })
 export class ModalProductoComponent implements OnInit {
 
-  public url: any;
+  public urlImage: any;
   public fileProductImage: any = null;
 
   @ViewChild('modal', {static: true}) closebutton!: ElementRef;
@@ -50,8 +50,19 @@ export class ModalProductoComponent implements OnInit {
 
   handleLoginResponse(response: any) {
     this.isSubmited =false;
+
+    if (this.fileProductImage != null) {
+      console.log('Subiendo imagen');
+      this.productosService.registrarImagenPorId(this.fileProductImage, response.headers.get('id'))
+      .subscribe(resp => {
+        console.log(resp);
+      });
+    }
+
     this.cleanErrorMessages();
     this.cleanFormValues();
+
+    console.log(response.headers.get('id'));
 
     this.closebutton.nativeElement.click();
 
@@ -163,7 +174,7 @@ export class ModalProductoComponent implements OnInit {
     }
 
     reader.onload = (event: any) => {
-      this.url = event.target.result;
+      this.urlImage = event.target.result;
     };
 
     reader.onerror = (event: any) => {
