@@ -27,9 +27,6 @@ export class InterceptorService implements HttpInterceptor {
     } else {
       req = req.clone({
         setHeaders: {
-          // 'Content-Type' : 'application/json; charset=utf-8',
-          // 'Content-Type' : 'multipart/form-data',
-          // 'Accept'       : 'application/json',
           'Authorization': `Bearer ${token}`,
         },
       });
