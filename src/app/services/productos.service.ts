@@ -27,4 +27,8 @@ export class ProductosService {
     return this.http.post(`${BASE_URL}/productos/subir/${idProducto}`, formData);
   }
 
+  eliminarProducto(idProducto: String) {
+    return this.http.delete(`${BASE_URL}/productos/${idProducto}`, {observe: "response"});
+  }
+
 }
