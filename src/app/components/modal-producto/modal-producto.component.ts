@@ -11,6 +11,7 @@ import { ProductosService } from 'src/app/services/productos.service';
 })
 export class ModalProductoComponent implements OnInit {
 
+  @ViewChild('fileInput') fileInputHTML: any;
   public urlImage: any;
   public fileProductImage: any = null;
 
@@ -54,29 +55,37 @@ export class ModalProductoComponent implements OnInit {
     this.isSubmited =false;
 
     if (this.fileProductImage != null) {
-      console.log('Subiendo imagen');
+      // Subiendo imagen  
       this.productosService.registrarImagenPorId(this.fileProductImage, response.headers.get('id'))
-      .subscribe(resp => {
-        // console.log(resp);
-        this.cleanErrorMessages();
-        this.cleanFormValues();
-        this.closebutton.nativeElement.click();
-        this.toastr.success('Hello world!', 'Toastr fun!');
+      .subscribe({
+          next: this.handleImageRegisterOk.bind(this),
+          error: this.handleImageRegisterError.bind(this)
       });
-    }
-
-    
-
+    } else {
+      this.toastr.success('Se registró el producto satisfactoriamente', 'Registro Satisfactorio!');
+    }  
   }
 
   handleLoginError(response: any) {
-
     if (response.status === 401) {
       this.errorMessages.backendResponseMessage = 'Credenciales incorrectas';
     } else {
       this.errorMessages.backendResponseMessage = 'Error técnico, debe contactarse con el administrador'
     }
-    
+  }
+
+  handleImageRegisterOk(response: any) {
+    this.cleanErrorMessages();
+    this.cleanFormValues();
+    this.closebutton.nativeElement.click();
+    this.toastr.success('Se culminó el proceso satisfactoriamente', 'Registro Satisfactorio!');
+  }
+
+  handleImageRegisterError(response: any) {
+    this.cleanErrorMessages();
+    this.cleanFormValues();
+    this.closebutton.nativeElement.click();
+    this.toastr.warning('No se pudo registrar la imagen, contacte con el administrador', 'Registro incompleto');
   }
 
   onSubmit() {
@@ -166,8 +175,13 @@ export class ModalProductoComponent implements OnInit {
     this.registerForm.controls['precio'].setValue('');
     this.registerForm.controls['stock'].setValue('');
 
+    this.registerForm.markAsPristine();
+    this.registerForm.markAsUntouched();
+
     this.urlImage = null;
-    this.urlImage = null;
+
+    this.fileProductImage = null;
+    this.fileInputHTML.nativeElement.value = '';
   }
 
   onChange(event: any) {

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { Producto } from 'src/app/interfaces/productos';
 import { ProductosService } from 'src/app/services/productos.service';
 
@@ -18,8 +17,7 @@ export class ProductosComponent implements OnInit {
 
   listProductos: Producto[] = [];
 
-  constructor(private productosService: ProductosService,
-              private toastr: ToastrService) { 
+  constructor(private productosService: ProductosService) { 
   }
 
   ngOnInit(): void {
@@ -46,10 +44,6 @@ export class ProductosComponent implements OnInit {
     );
   }
 
-  showSuccess() {
-    console.log("showSuccess init");
-    this.toastr.success('Hello world!', 'Toastr fun!');
-    console.log("showSuccess end");
-  }
+  
 
 }
