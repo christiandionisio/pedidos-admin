@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { ToastrModule } from 'ngx-toastr';
+import { NgbModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
@@ -19,6 +22,10 @@ import { InterceptorService } from './services/interceptor.service';
     AppRoutingModule,
     PagesModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    NgbModule,
+    NgbToastModule
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, 

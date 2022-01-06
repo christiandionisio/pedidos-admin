@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { Producto } from 'src/app/interfaces/productos';
 import { ProductosService } from 'src/app/services/productos.service';
 
@@ -35,7 +36,8 @@ export class ModalProductoComponent implements OnInit {
   };
 
   constructor(private fb: FormBuilder,
-              private productosService: ProductosService) { }
+              private productosService: ProductosService,
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
   }
@@ -55,16 +57,15 @@ export class ModalProductoComponent implements OnInit {
       console.log('Subiendo imagen');
       this.productosService.registrarImagenPorId(this.fileProductImage, response.headers.get('id'))
       .subscribe(resp => {
-        console.log(resp);
+        // console.log(resp);
+        this.cleanErrorMessages();
+        this.cleanFormValues();
+        this.closebutton.nativeElement.click();
+        this.toastr.success('Hello world!', 'Toastr fun!');
       });
     }
 
-    this.cleanErrorMessages();
-    this.cleanFormValues();
-
-    console.log(response.headers.get('id'));
-
-    this.closebutton.nativeElement.click();
+    
 
   }
 
@@ -164,6 +165,9 @@ export class ModalProductoComponent implements OnInit {
     this.registerForm.controls['tipo'].setValue('');
     this.registerForm.controls['precio'].setValue('');
     this.registerForm.controls['stock'].setValue('');
+
+    this.urlImage = null;
+    this.urlImage = null;
   }
 
   onChange(event: any) {

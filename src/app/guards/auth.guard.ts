@@ -19,15 +19,15 @@ export class AuthGuard implements CanActivate {
 
     const token = localStorage.getItem('token') || '';
 
-    if (token != null && !this.jwtHelper.isTokenExpired(token)) {
-      const payload = this.getTokenDecoded(token);
-      const role = payload.role[0];
-      console.log(role);
+    // if (token != null && !this.jwtHelper.isTokenExpired(token)) {
+    //   const payload = this.getTokenDecoded(token);
+    //   const role = payload.role[0];
+    //   console.log(role);
 
-      return true;
-    }
+    //   return true;
+    // }
 
-    this.router.navigateByUrl('/login');
+    // this.router.navigateByUrl('/login');
     return true;
   }
 
