@@ -59,7 +59,7 @@
                                 </td>
                                 <td class="align-middle">
                                     <div class="progress-wrapper w-75 mx-auto">
-                                        <button type="button" class="btn bg-gradient-info btn-tooltip btn-sm mr-5"
+                                        <button type="button" class="btn btn-icon btn-info btn-tooltip btn-sm mr-5"
                                             data-bs-toggle="tooltip" 
                                             data-bs-placement="top" 
                                             title="Visualizar registro" 
@@ -67,7 +67,7 @@
                                             data-animation="true">
                                             <i class="material-icons md-16">visibility</i>
                                         </button>
-                                        <button type="button" class="btn bg-gradient-warning btn-tooltip btn-sm mr-5"
+                                        <button type="button" class="btn btn-icon btn-warning btn-tooltip btn-sm mr-5"
                                             data-bs-toggle="tooltip" 
                                             data-bs-placement="top" 
                                             title="Editar registro" 
@@ -75,13 +75,14 @@
                                             data-animation="true">
                                             <i class="material-icons md-16">edit</i>
                                         </button>
-                                        <button type="button" class="btn bg-gradient-danger btn-tooltip btn-sm mr-5"
+                                        <button type="button" class="btn btn-icon btn-danger btn-tooltip btn-sm mr-5"
                                             data-bs-toggle="tooltip" 
                                             data-bs-placement="top" 
                                             title="Eliminar registro" 
                                             data-container="body" 
-                                            data-animation="true">
-                                            <i class="material-icons md-16" (click)="eliminarRegistro(producto.id)">delete</i>
+                                            data-animation="true"
+                                            (click)="eliminarRegistro(producto.id, producto.nombre)">
+                                            <i class="material-icons md-16">delete</i>
                                         </button>
                                     </div>
                                 </td>

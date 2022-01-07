@@ -20,9 +20,11 @@
     "@angular/router": "~13.0.0",
     "@auth0/angular-jwt": "^5.0.2",
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
+    "@sweetalert2/ngx-sweetalert2": "^10.0.0",
     "jwt-decode": "^3.1.2",
     "ngx-toastr": "^14.2.1",
     "rxjs": "~7.4.0",
+    "sweetalert2": "^11.3.3",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },

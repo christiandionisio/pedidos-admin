@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { ToastrModule } from 'ngx-toastr';
-import { NgbModule, NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
@@ -24,8 +24,7 @@ import { InterceptorService } from './services/interceptor.service';
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    NgbModule,
-    NgbToastModule
+    SweetAlert2Module.forRoot()
   ],
   providers: [
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS }, 

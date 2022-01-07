@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Producto } from 'src/app/interfaces/productos';
 import { ProductosService } from 'src/app/services/productos.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-productos',
@@ -46,21 +47,43 @@ export class ProductosComponent implements OnInit {
     );
   }
 
-  eliminarRegistro(id: String) {
+  eliminarRegistro(id: String, productName: String) {
     this.idProductoEliminado = id;
-    //TODO: mostrar modal de confirmacion anates de eliminar
-    this.productosService.eliminarProducto(id).subscribe({
-        next: this.handleEliminarResponseOk.bind(this),
-        error: this.handleEliminarError.bind(this)
-    });   
+    
+    Swal.fire({
+      title: `¿Está seguro(a) que desea eliminar "${productName}"?`,
+      text: "No será capaz de revertir esta operación.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: '¡Sí, eliminar!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+
+        this.productosService.eliminarProducto(id).subscribe({
+            next: this.handleEliminarResponseOk.bind(this),
+            error: this.handleEliminarError.bind(this)
+        }); 
+      }
+    });  
   }
 
   handleEliminarResponseOk(response: any) {
     console.log('Registro eliminado');
 
-    if (this.listProductos.length === 1) {
+    Swal.fire(
+      '¡Producto Eliminado!',
+      'El producto ha sido eliminado',
+      'success'
+    );
+
+    if (this.listProductos.length === 1 && this.isLastPage) {
       this.totalPages--;
       this.selectedPage--;
+      this.getPages(this.selectedPage);
+    } else if (!this.isLastPage) {
       this.getPages(this.selectedPage);
     } else {
       const indexDeleted = this.listProductos.findIndex((producto) => producto.id === this.idProductoEliminado);
