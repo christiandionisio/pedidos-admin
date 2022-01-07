@@ -94,17 +94,29 @@ export class ProductosComponent implements OnInit {
   handleEliminarError(response: any) {
     if (response.status === 404) {
       console.log('El producto ya no existe');
+      Swal.fire(
+        '¡Error!',
+        'El producto ya ha sido eliminado',
+        'error'
+      );
       return;
     }
-
     if (response.status === 401) {
       console.log('No autorizado');
+      Swal.fire(
+        '¡Error!',
+        'Su sesión ha caducado.',
+        'error'
+      );
       return;
     }
 
-    console.log('Error en los servicios, contacte con el administrador');
-
-    
+    Swal.fire(
+      '¡Error!',
+      'Error en los servicios, contacte con el administrador',
+      'error'
+    );
+    console.log('Error en los servicios, contacte con el administrador ' + response.status ); 
   }
 
   
