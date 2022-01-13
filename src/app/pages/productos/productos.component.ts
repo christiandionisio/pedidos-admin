@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalProductoComponent } from 'src/app/components/modal-producto/modal-producto.component';
 import { Producto } from 'src/app/interfaces/productos';
 import { ProductosService } from 'src/app/services/productos.service';
 import Swal from 'sweetalert2';
@@ -20,7 +22,8 @@ export class ProductosComponent implements OnInit {
 
   idProductoEliminado: String = '';
 
-  constructor(private productosService: ProductosService) { 
+  constructor(private productosService: ProductosService,
+              public modalService: NgbModal) { 
   }
 
   ngOnInit(): void {
@@ -89,36 +92,36 @@ export class ProductosComponent implements OnInit {
       const indexDeleted = this.listProductos.findIndex((producto) => producto.id === this.idProductoEliminado);
       this.listProductos.splice(indexDeleted, 1);
     }
+
+    this.idProductoEliminado = '';
   }
 
   handleEliminarError(response: any) {
     if (response.status === 404) {
       console.log('El producto ya no existe');
-      Swal.fire(
-        '¡Error!',
-        'El producto ya ha sido eliminado',
-        'error'
-      );
+      Swal.fire('¡Error!', 'El producto ya ha sido eliminado', 'error');
       return;
     }
     if (response.status === 401) {
       console.log('No autorizado');
-      Swal.fire(
-        '¡Error!',
-        'Su sesión ha caducado.',
-        'error'
-      );
+      Swal.fire('¡Error!', 'Su sesión ha caducado.', 'error');
       return;
     }
 
-    Swal.fire(
-      '¡Error!',
-      'Error en los servicios, contacte con el administrador',
-      'error'
-    );
+    Swal.fire('¡Error!', 'Error en los servicios, contacte con el administrador', 'error');
     console.log('Error en los servicios, contacte con el administrador ' + response.status ); 
+    this.idProductoEliminado = '';
   }
 
+
+  verProducto(producto: Producto) {
+    const modalRef = this.modalService.open(ModalProductoComponent, { size: 'lg' });
+    modalRef.componentInstance.verProducto = producto;
+  }
+
+  agregarProducto() {
+    const modalRef = this.modalService.open(ModalProductoComponent, { size: 'lg' });
+  }
   
 
 }

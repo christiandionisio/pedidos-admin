@@ -1,15 +1,17 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { Producto } from 'src/app/interfaces/productos';
 import { ProductosService } from 'src/app/services/productos.service';
-
 @Component({
   selector: 'app-modal-producto',
   templateUrl: './modal-producto.component.html',
   styleUrls: ['./modal-producto.component.css']
 })
 export class ModalProductoComponent implements OnInit {
+
+  @Input('verProducto') verProducto!: Producto;
 
   @ViewChild('fileInput') fileInputHTML: any;
   public urlImage: any;
@@ -38,9 +40,11 @@ export class ModalProductoComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private productosService: ProductosService,
-              private toastr: ToastrService) { }
+              private toastr: ToastrService,
+              public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
+    console.log(this.verProducto);
   }
 
   registarProducto(producto: Producto) {
@@ -201,6 +205,34 @@ export class ModalProductoComponent implements OnInit {
 
     reader.readAsDataURL(event.target.files[0]);
 
+  }
+
+  onFocusInput(event: any) {
+    event.target.parentNode.classList.add("is-focused");
+  }
+
+  onFocusOutInput(event: any, fieldName: string) {
+    event.target.parentNode.classList.remove("is-focused");
+
+    if (this.registerForm.controls[fieldName].value === null) {
+      event.target.parentNode.classList.remove("is-filled");
+      return;
+    }
+
+    if (this.registerForm.controls[fieldName].value != '') {
+      event.target.parentNode.classList.add("is-filled");
+      return;
+    }
+
+    if (this.registerForm.controls[fieldName].value === '') {
+      event.target.parentNode.classList.remove("is-filled");
+      return;
+    }
+
+  }
+
+  cerrarModal() {
+    this.activeModal.close();
   }
 
 }

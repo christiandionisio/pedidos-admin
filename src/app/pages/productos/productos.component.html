@@ -9,7 +9,7 @@
                     <div class="col-lg-6 col-5 my-auto text-end">
                         <button type="button" 
                                 class="btn bg-gradient-info"
-                                data-bs-toggle="modal" data-bs-target="#modalProducto">
+                                (click)="agregarProducto()">
                             <i class="material-icons">queue</i>&nbsp;&nbsp;Agregar Producto
                         </button>
                     </div>
@@ -64,7 +64,8 @@
                                             data-bs-placement="top" 
                                             title="Visualizar registro" 
                                             data-container="body" 
-                                            data-animation="true">
+                                            data-animation="true"
+                                            (click)="verProducto(producto)">
                                             <i class="material-icons md-16">visibility</i>
                                         </button>
                                         <button type="button" class="btn btn-icon btn-warning btn-tooltip btn-sm mr-5"
@@ -164,7 +165,5 @@
             </div>
         </div>
     </div>
-    
-    <app-modal-producto></app-modal-producto>
 </div>
 
