@@ -56,6 +56,7 @@ export class ModalProductoComponent implements OnInit {
     this.registerForm.controls['tipo'].setValue(this.verProducto.tipo);
     this.registerForm.controls['precio'].setValue(this.verProducto.precio);
     this.registerForm.controls['stock'].setValue(this.verProducto.stock);
+    this.urlImage = this.verProducto.urlFoto;
 
     this.registerForm.controls['nombre'].disable();
     this.registerForm.controls['descripcion'].disable();

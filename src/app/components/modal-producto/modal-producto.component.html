@@ -1,6 +1,7 @@
 <div class="modal-content">
     <div class="modal-header">
-        <h6 class="modal-title font-weight-normal" id="exampleModalLabel">Agregar Producto</h6>
+        <h6 class="modal-title font-weight-normal"  *ngIf="verProducto == undefined">Agregar Producto</h6>
+        <h6 class="modal-title font-weight-normal" *ngIf="verProducto != undefined">Detalle Producto</h6>
     </div>
     <form role="form" class="text-start" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="modal-body">
@@ -13,7 +14,10 @@
                     <div class="input-group input-group-outline my-1">
                         <input #fileInput type="file" hidden (change)="onChange($event)" accept="image/*"> 
                     </div>
-                    <button type="button" class="btn btn-outline-secondary" (click)="fileInput.click()">
+                    <button type="button" 
+                        *ngIf="this.verProducto == undefined"
+                        class="btn btn-outline-secondary" 
+                        (click)="fileInput.click()">
                         <i class="fas fa-image fa-lg"></i> Seleccionar Archivo
                     </button>
                     {{(fileProductImage != null) ? fileProductImage.name : ''}}
@@ -92,8 +96,20 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn bg-gradient-secondary" (click)="cerrarModal()">Cancelar</button>
-                    <button type="submit" class="btn bg-gradient-primary">Registrar</button>
+                    <button type="button" class="btn bg-gradient-secondary" 
+                        (click)="cerrarModal()"
+                        *ngIf="verProducto == undefined">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn bg-gradient-primary"
+                        *ngIf="verProducto == undefined">
+                        Registrar
+                    </button>
+                    <button type="button" class="btn bg-gradient-success"
+                        *ngIf="verProducto != undefined"
+                        (click)="cerrarModal()">
+                        Regregar
+                    </button>
                 </div>
             </div>
 
