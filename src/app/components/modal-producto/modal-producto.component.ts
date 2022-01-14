@@ -45,6 +45,23 @@ export class ModalProductoComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.verProducto);
+    if (this.verProducto != undefined) {
+      this.verDatosProducto();
+    }
+  }
+
+  verDatosProducto(){
+    this.registerForm.controls['nombre'].setValue(this.verProducto.nombre);
+    this.registerForm.controls['descripcion'].setValue(this.verProducto.descripcion);
+    this.registerForm.controls['tipo'].setValue(this.verProducto.tipo);
+    this.registerForm.controls['precio'].setValue(this.verProducto.precio);
+    this.registerForm.controls['stock'].setValue(this.verProducto.stock);
+
+    this.registerForm.controls['nombre'].disable();
+    this.registerForm.controls['descripcion'].disable();
+    this.registerForm.controls['tipo'].disable();
+    this.registerForm.controls['precio'].disable();
+    this.registerForm.controls['stock'].disable();
   }
 
   registarProducto(producto: Producto) {
