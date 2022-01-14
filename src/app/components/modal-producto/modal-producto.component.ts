@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -64,13 +64,13 @@ export class ModalProductoComponent implements OnInit {
 
   registarProducto(producto: Producto) {
     this.productosService.registrarProducto(producto).subscribe({
-      next: this.handleLoginResponse.bind(this),
-      error: this.handleLoginError.bind(this)
+      next: this.handleRegisterResponse.bind(this),
+      error: this.handleRegisterError.bind(this)
    });
    
   }
 
-  handleLoginResponse(response: any) {
+  handleRegisterResponse(response: any) {
     this.isSubmited =false;
 
     if (this.fileProductImage != null) {
@@ -85,7 +85,7 @@ export class ModalProductoComponent implements OnInit {
     }  
   }
 
-  handleLoginError(response: any) {
+  handleRegisterError(response: any) {
     if (response.status === 401) {
       this.errorMessages.backendResponseMessage = 'Credenciales incorrectas';
     } else {
