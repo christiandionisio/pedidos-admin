@@ -17,8 +17,6 @@ export class ModalProductoComponent implements OnInit {
   public urlImage: any;
   public fileProductImage: any = null;
 
-  @ViewChild('modal', {static: true}) closebutton!: ElementRef;
-
   public isSubmited: boolean = false;
 
   public registerForm = this.fb.group({
@@ -44,7 +42,6 @@ export class ModalProductoComponent implements OnInit {
               public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
-    console.log(this.verProducto);
     if (this.verProducto != undefined) {
       this.verDatosProducto();
     }
@@ -99,14 +96,14 @@ export class ModalProductoComponent implements OnInit {
   handleImageRegisterOk(response: any) {
     this.cleanErrorMessages();
     this.cleanFormValues();
-    this.closebutton.nativeElement.click();
+    this.cerrarModal();
     this.toastr.success('Se culminó el proceso satisfactoriamente', 'Registro Satisfactorio!');
   }
 
   handleImageRegisterError(response: any) {
     this.cleanErrorMessages();
     this.cleanFormValues();
-    this.closebutton.nativeElement.click();
+    this.cerrarModal();
     this.toastr.warning('No se pudo registrar la imagen, contacte con el administrador', 'Registro incompleto');
   }
 
