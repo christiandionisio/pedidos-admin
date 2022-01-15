@@ -17,7 +17,7 @@ export class AuthService {
   }
 
   login(authUserData: AuthUser) {
-    return this.http.post(`${BASE_URL}/auth/login`, authUserData)
+    return this.http.post(`${BASE_URL}/auth/login-employee`, authUserData)
       .pipe(
         tap( (response: any) => {
           const token = response.token;
@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   register(registerUserData: RegisterUser) {
-    return this.http.post(`${BASE_URL}/auth/register`, registerUserData)
+    return this.http.post(`${BASE_URL}/auth/register-employee`, registerUserData)
       .pipe(
         tap( (response: any) => {
           const token = response.token;
