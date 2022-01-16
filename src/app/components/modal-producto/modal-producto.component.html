@@ -1,7 +1,8 @@
 <div class="modal-content">
     <div class="modal-header">
-        <h6 class="modal-title font-weight-normal"  *ngIf="verProducto == undefined">Agregar Producto</h6>
+        <h6 class="modal-title font-weight-normal"  *ngIf="verProducto == undefined && editarProducto == undefined">Agregar Producto</h6>
         <h6 class="modal-title font-weight-normal" *ngIf="verProducto != undefined">Detalle Producto</h6>
+        <h6 class="modal-title font-weight-normal" *ngIf="editarProducto != undefined">Editar Producto</h6>
     </div>
     <form role="form" class="text-start" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="modal-body">
@@ -26,7 +27,7 @@
                     <div [ngClass]="registerForm.controls['nombre'].invalid && isSubmited ? 
                         'input-group input-group-outline my-3 is-invalid' : 
                         'input-group input-group-outline my-3'"
-                        [ngClass]="verProducto != undefined ? 
+                        [ngClass]="verProducto != undefined || editarProducto != undefined ? 
                         'input-group input-group-outline my-3 is-filled' : 
                         'input-group input-group-outline my-3'">
                         <label class="form-label">Nombre</label>
@@ -41,7 +42,7 @@
                     <div [ngClass]="registerForm.controls['descripcion'].invalid && isSubmited ? 
                         'input-group input-group-outline my-3 is-invalid' : 
                         'input-group input-group-outline my-3'"
-                        [ngClass]="verProducto != undefined ? 
+                        [ngClass]="verProducto != undefined || editarProducto != undefined ? 
                         'input-group input-group-outline my-3 is-filled' : 
                         'input-group input-group-outline my-3'">
                         <label class="form-label">Descripción</label>
@@ -55,7 +56,7 @@
                     <div [ngClass]="registerForm.controls['tipo'].invalid && isSubmited ? 
                         'input-group input-group-outline my-3 is-invalid' : 
                         'input-group input-group-outline my-3'"
-                        [ngClass]="verProducto != undefined ? 
+                        [ngClass]="verProducto != undefined || editarProducto != undefined ? 
                         'input-group input-group-outline my-3 is-filled' : 
                         'input-group input-group-outline my-3'">
                         <label class="form-label">Tipo</label>
@@ -69,7 +70,7 @@
                     <div [ngClass]="registerForm.controls['precio'].invalid && isSubmited ? 
                         'input-group input-group-outline my-3 is-invalid' : 
                         'input-group input-group-outline my-3'"
-                        [ngClass]="verProducto != undefined ? 
+                        [ngClass]="verProducto != undefined || editarProducto != undefined ? 
                         'input-group input-group-outline my-3 is-filled' : 
                         'input-group input-group-outline my-3'">
                         <label class="form-label">Precio</label>
@@ -83,7 +84,7 @@
                     <div [ngClass]="registerForm.controls['stock'].invalid && isSubmited ? 
                         'input-group input-group-outline my-3 is-invalid' : 
                         'input-group input-group-outline my-3'"
-                        [ngClass]="verProducto != undefined ? 
+                        [ngClass]="verProducto != undefined  || editarProducto != undefined? 
                         'input-group input-group-outline my-3 is-filled' : 
                         'input-group input-group-outline my-3'">
                         <label class="form-label">Stock</label>
@@ -102,8 +103,12 @@
                         Cancelar
                     </button>
                     <button type="submit" class="btn bg-gradient-primary"
-                        *ngIf="verProducto == undefined">
+                        *ngIf="verProducto == undefined && editarProducto == undefined">
                         Registrar
+                    </button>
+                    <button type="submit" class="btn bg-gradient-primary"
+                        *ngIf="editarProducto != undefined">
+                        Editar
                     </button>
                     <button type="button" class="btn bg-gradient-success"
                         *ngIf="verProducto != undefined"

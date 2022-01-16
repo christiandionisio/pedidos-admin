@@ -12,6 +12,7 @@ import { ProductosService } from 'src/app/services/productos.service';
 export class ModalProductoComponent implements OnInit {
 
   @Input('verProducto') verProducto!: Producto;
+  @Input('editarProducto') editarProducto!: Producto;
 
   @ViewChild('fileInput') fileInputHTML: any;
   public urlImage: any;
@@ -42,19 +43,27 @@ export class ModalProductoComponent implements OnInit {
               public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
+    console.log(this.editarProducto);
     if (this.verProducto != undefined) {
-      this.verDatosProducto();
+      this.mostrarDatosProducto(this.verProducto);
+      this.bloquearInputs();
+    }
+
+    if (this.editarProducto != undefined) {
+      this.mostrarDatosProducto(this.editarProducto);
     }
   }
 
-  verDatosProducto(){
-    this.registerForm.controls['nombre'].setValue(this.verProducto.nombre);
-    this.registerForm.controls['descripcion'].setValue(this.verProducto.descripcion);
-    this.registerForm.controls['tipo'].setValue(this.verProducto.tipo);
-    this.registerForm.controls['precio'].setValue(this.verProducto.precio);
-    this.registerForm.controls['stock'].setValue(this.verProducto.stock);
-    this.urlImage = this.verProducto.urlFoto;
+  mostrarDatosProducto(producto: Producto): void{
+    this.registerForm.controls['nombre'].setValue(producto.nombre);
+    this.registerForm.controls['descripcion'].setValue(producto.descripcion);
+    this.registerForm.controls['tipo'].setValue(producto.tipo);
+    this.registerForm.controls['precio'].setValue(producto.precio);
+    this.registerForm.controls['stock'].setValue(producto.stock);
+    this.urlImage = producto.urlFoto;
+  }
 
+  bloquearInputs() {
     this.registerForm.controls['nombre'].disable();
     this.registerForm.controls['descripcion'].disable();
     this.registerForm.controls['tipo'].disable();
@@ -81,6 +90,9 @@ export class ModalProductoComponent implements OnInit {
           error: this.handleImageRegisterError.bind(this)
       });
     } else {
+      this.cleanErrorMessages();
+      this.cleanFormValues();
+      this.cerrarModal();
       this.toastr.success('Se registró el producto satisfactoriamente', 'Registro Satisfactorio!');
     }  
   }
@@ -107,9 +119,46 @@ export class ModalProductoComponent implements OnInit {
     this.toastr.warning('No se pudo registrar la imagen, contacte con el administrador', 'Registro incompleto');
   }
 
+  updateProducto(producto: Producto) {
+    
+    producto.id = this.editarProducto.id;
+    producto.publicId = this.editarProducto.publicId;
+    producto.urlFoto = this.editarProducto.urlFoto;
+    producto.fechaRegistro = this.editarProducto.fechaRegistro;
+
+    this.productosService.updateProducto(producto).subscribe({
+      next: this.handleUpdateResponse.bind(this),
+      error: this.handleUpdateError.bind(this)
+   });
+  }
+
+  handleUpdateResponse(response: any) {
+    this.isSubmited =false;
+
+    if (this.fileProductImage != null) {
+      // Subiendo imagen  
+      this.productosService.updateImagenPorId(this.fileProductImage, this.editarProducto.id)
+      .subscribe({
+          next: this.handleImageRegisterOk.bind(this),
+          error: this.handleImageRegisterError.bind(this)
+      });
+    } else {
+      this.cleanErrorMessages();
+      this.cleanFormValues();
+      this.cerrarModal();
+      this.toastr.success('Se actualizó el producto satisfactoriamente', 'Registro Satisfactorio!');
+    } 
+  }
+
+  handleUpdateError(response: any) {
+    if (response.status === 401) {
+      this.errorMessages.backendResponseMessage = 'Credenciales incorrectas';
+    } else {
+      this.errorMessages.backendResponseMessage = 'Error técnico, debe contactarse con el administrador'
+    }
+  }
+
   onSubmit() {
-    console.log("Submit");
-    console.log(this.registerForm.value);
 
     if (this.registerForm.invalid) {
 
@@ -118,7 +167,11 @@ export class ModalProductoComponent implements OnInit {
 
     } else {
 
-      this.registarProducto(this.registerForm.value); 
+      if (this.editarProducto == undefined) {
+        this.registarProducto(this.registerForm.value); 
+      } else {
+        this.updateProducto(this.registerForm.value);
+      }
 
     }
   }

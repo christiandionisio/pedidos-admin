@@ -119,6 +119,11 @@ export class ProductosComponent implements OnInit {
     modalRef.componentInstance.verProducto = producto;
   }
 
+  editarProducto(producto: Producto) {
+    const modalRef = this.modalService.open(ModalProductoComponent, { size: 'lg' });
+    modalRef.componentInstance.editarProducto = producto;
+  }
+
   agregarProducto() {
     const modalRef = this.modalService.open(ModalProductoComponent, { size: 'lg' });
   }

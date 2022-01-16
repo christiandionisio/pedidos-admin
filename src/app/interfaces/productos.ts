@@ -7,4 +7,5 @@ export interface Producto {
     stock: number;
     fechaRegistro: String;
     urlFoto: String;
+    publicId: String;
 }

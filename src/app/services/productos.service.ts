@@ -27,6 +27,17 @@ export class ProductosService {
     return this.http.post(`${BASE_URL}/productos/subir/${idProducto}`, formData);
   }
 
+  updateProducto(producto: Producto) {
+    return this.http.put(`${BASE_URL}/productos`, producto, {observe: "response"});
+  }
+
+  updateImagenPorId(imagen: File, idProducto: String) {
+    const formData = new FormData();
+    formData.append('file', imagen, imagen.name);
+    
+    return this.http.put(`${BASE_URL}/productos/update-image/${idProducto}`, formData);
+  }
+
   eliminarProducto(idProducto: String) {
     return this.http.delete(`${BASE_URL}/productos/${idProducto}`, {observe: "response"});
   }
