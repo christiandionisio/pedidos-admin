@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -13,6 +13,7 @@ export class ModalProductoComponent implements OnInit {
 
   @Input('verProducto') verProducto!: Producto;
   @Input('editarProducto') editarProducto!: Producto;
+  @Output() isEditarOkResponse: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('fileInput') fileInputHTML: any;
   public urlImage: any;
@@ -43,7 +44,6 @@ export class ModalProductoComponent implements OnInit {
               public activeModal: NgbActiveModal) { }
 
   ngOnInit(): void {
-    console.log(this.editarProducto);
     if (this.verProducto != undefined) {
       this.mostrarDatosProducto(this.verProducto);
       this.bloquearInputs();
@@ -110,6 +110,10 @@ export class ModalProductoComponent implements OnInit {
     this.cleanFormValues();
     this.cerrarModal();
     this.toastr.success('Se culminó el proceso satisfactoriamente', 'Registro Satisfactorio!');
+
+    if (this.editarProducto != undefined) {
+      this.isEditarOkResponse.emit(true);
+    }
   }
 
   handleImageRegisterError(response: any) {
@@ -117,10 +121,14 @@ export class ModalProductoComponent implements OnInit {
     this.cleanFormValues();
     this.cerrarModal();
     this.toastr.warning('No se pudo registrar la imagen, contacte con el administrador', 'Registro incompleto');
+    
+    if (this.editarProducto != undefined) {
+      this.isEditarOkResponse.emit(false);
+    }
   }
 
   updateProducto(producto: Producto) {
-    
+
     producto.id = this.editarProducto.id;
     producto.publicId = this.editarProducto.publicId;
     producto.urlFoto = this.editarProducto.urlFoto;
@@ -147,6 +155,7 @@ export class ModalProductoComponent implements OnInit {
       this.cleanFormValues();
       this.cerrarModal();
       this.toastr.success('Se actualizó el producto satisfactoriamente', 'Registro Satisfactorio!');
+      this.isEditarOkResponse.emit(true);
     } 
   }
 
@@ -156,6 +165,7 @@ export class ModalProductoComponent implements OnInit {
     } else {
       this.errorMessages.backendResponseMessage = 'Error técnico, debe contactarse con el administrador'
     }
+    this.isEditarOkResponse.emit(false);
   }
 
   onSubmit() {

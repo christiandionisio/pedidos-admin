@@ -64,7 +64,6 @@ export class ProductosComponent implements OnInit {
       confirmButtonText: '¡Sí, eliminar!'
     }).then((result) => {
       if (result.isConfirmed) {
-
         this.productosService.eliminarProducto(id).subscribe({
             next: this.handleEliminarResponseOk.bind(this),
             error: this.handleEliminarError.bind(this)
@@ -122,6 +121,11 @@ export class ProductosComponent implements OnInit {
   editarProducto(producto: Producto) {
     const modalRef = this.modalService.open(ModalProductoComponent, { size: 'lg' });
     modalRef.componentInstance.editarProducto = producto;
+    modalRef.componentInstance.isEditarOkResponse.subscribe((isEditarOk: any) => {
+      if (isEditarOk) {
+        this.getPages(this.selectedPage);
+      }
+    });
   }
 
   agregarProducto() {
