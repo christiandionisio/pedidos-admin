@@ -7,9 +7,7 @@
                         <h6>Lista de Productos</h6>
                     </div>
                     <div class="col-lg-6 col-5 my-auto text-end">
-                        <button type="button" 
-                                class="btn bg-gradient-info"
-                                (click)="agregarProducto()">
+                        <button type="button" class="btn bg-gradient-info" (click)="agregarProducto()">
                             <i class="material-icons">queue</i>&nbsp;&nbsp;Agregar Producto
                         </button>
                     </div>
@@ -60,29 +58,19 @@
                                 <td class="align-middle">
                                     <div class="progress-wrapper w-75 mx-auto">
                                         <button type="button" class="btn btn-icon btn-info btn-tooltip btn-sm mr-5"
-                                            data-bs-toggle="tooltip" 
-                                            data-bs-placement="top" 
-                                            title="Visualizar registro" 
-                                            data-container="body" 
-                                            data-animation="true"
-                                            (click)="verProducto(producto)">
+                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar registro"
+                                            data-container="body" data-animation="true" (click)="verProducto(producto)">
                                             <i class="material-icons md-16">visibility</i>
                                         </button>
                                         <button type="button" class="btn btn-icon btn-warning btn-tooltip btn-sm mr-5"
-                                            data-bs-toggle="tooltip" 
-                                            data-bs-placement="top" 
-                                            title="Editar registro" 
-                                            data-container="body" 
-                                            data-animation="true"
+                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Editar registro"
+                                            data-container="body" data-animation="true"
                                             (click)="editarProducto(producto)">
                                             <i class="material-icons md-16">edit</i>
                                         </button>
                                         <button type="button" class="btn btn-icon btn-danger btn-tooltip btn-sm mr-5"
-                                            data-bs-toggle="tooltip" 
-                                            data-bs-placement="top" 
-                                            title="Eliminar registro" 
-                                            data-container="body" 
-                                            data-animation="true"
+                                            data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar registro"
+                                            data-container="body" data-animation="true"
                                             (click)="eliminarRegistro(producto.id, producto.nombre)">
                                             <i class="material-icons md-16">delete</i>
                                         </button>
@@ -94,7 +82,7 @@
 
                     <br>
 
-                    <nav aria-label="Page navigation example">
+                    <div class="pagination-container justify-content-center">
                         <ul class="pagination justify-content-center">
                             <li class="page-item disabled" [ngClass]="{'disabled': isFirstPage}">
                                 <a class="page-link" href="javascript:;" tabindex="-1"
@@ -119,14 +107,14 @@
                                 </a>
                             </li>
                         </ul>
-                    </nav>
+                    </div>
                 </div>
                 <div *ngIf="listProductos.length === 0" class="card-body">
                     <div class="alert alert-warning" role="alert">
                         <span class="alert-icon align-middle">
-                          <span class="material-icons text-md">
-                            error_outline
-                          </span>
+                            <span class="material-icons text-md">
+                                error_outline
+                            </span>
                         </span>
                         <span class="alert-text"> Datos no disponible.</span>
                     </div>
@@ -152,7 +140,8 @@
                     <br>
                     <button type="submit" class="btn btn-success btn-lg w-100" [disabled]="isLoading">
                         <span class="material-icons" *ngIf="!isLoading">search</span>
-                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" *ngIf="isLoading"></span>&nbsp;
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                            *ngIf="isLoading"></span>&nbsp;
                         {{(!isLoading) ? 'Realizar Búsqueda' : 'Cargando...'}}
                     </button>
                 </form>
@@ -160,4 +149,3 @@
         </div>
     </div>
 </div>
-
