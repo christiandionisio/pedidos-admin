@@ -85,7 +85,7 @@
                     <div class="pagination-container justify-content-center">
                         <ul class="pagination justify-content-center">
                             <li class="page-item disabled" [ngClass]="{'disabled': isFirstPage}">
-                                <a class="page-link" href="javascript:;" tabindex="-1"
+                                <a class="page-link transparent" href="javascript:;" tabindex="-1"
                                     (click)="getPages(selectedPage-1)">
                                     <span class="material-icons">
                                         keyboard_arrow_left
@@ -95,11 +95,11 @@
                             </li>
                             <ng-container *ngFor="let item of [].constructor(totalPages); let i = index">
                                 <li class="page-item" [ngClass]="{'active': i === selectedPage}">
-                                    <a class="page-link" (click)="getPages(i)" href="javascript:;">{{i+1}}</a>
+                                    <a class="page-link transparent" (click)="getPages(i)" href="javascript:;">{{i+1}}</a>
                                 </li>
                             </ng-container>
                             <li class="page-item" [ngClass]="{'disabled': isLastPage}">
-                                <a class="page-link" href="javascript:;" (click)="getPages(selectedPage+1)">
+                                <a class="page-link transparent" href="javascript:;" (click)="getPages(selectedPage+1)">
                                     <span class="material-icons">
                                         keyboard_arrow_right
                                     </span>
