@@ -11,6 +11,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   public arrayPath: String[] = [];
   private ngUnsubscribe = new Subject();
+  public username = localStorage.getItem('user');
 
   constructor(private router: Router) { 
     this.router.events.subscribe(event => this.setUrlToBreadcrumb());
