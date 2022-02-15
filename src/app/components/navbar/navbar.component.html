@@ -1,40 +1,43 @@
-<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
-    <div class="container-fluid py-1 px-3">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-          <ng-container *ngFor="let path of arrayPath; let i = index">
-            <li class="breadcrumb-item text-sm opacity-5 text-dark" *ngIf="path != '' && (i+1) != arrayPath.length">{{path}}</li>
-            <li class="breadcrumb-item text-sm text-dark active" *ngIf="path != '' && (i+1) === arrayPath.length">{{path}}</li>
-          </ng-container>
-        </ol>
-        <h6 class="font-weight-bolder mb-0">Dashboard</h6>
-      </nav>
-      <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-        <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-          <li class="nav-item d-flex align-items-center">
-            <span class="nav-link-text ms-1">Modo Oscuro</span>&nbsp;&nbsp;
-            <div class="form-check form-switch ps-0 ms-auto my-auto">
-              <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version" onclick="darkMode(this)">
-            </div>
+<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
+  navbar-scroll="true">
+  <div class="container-fluid py-1 px-3">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+        <ng-container *ngFor="let path of arrayPath; let i = index">
+          <li class="breadcrumb-item text-sm opacity-5 text-dark" *ngIf="path != '' && (i+1) != arrayPath.length">
+            {{path}}</li>
+          <li class="breadcrumb-item text-sm text-dark active" *ngIf="path != '' && (i+1) === arrayPath.length">{{path}}
           </li>
-        </div>
-        <ul class="navbar-nav  justify-content-end">
-          <li class="nav-item d-flex align-items-center">
-            <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
-              <i class="fa fa-user me-sm-1"></i>
-              <span class="d-sm-inline d-none"> {{username}} </span>
-            </a>
-          </li>
-          <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-            <a href="javascript:;" class="nav-link text-body p-0" onclick="toggleSidenav()">
-              <div class="sidenav-toggler-inner">
-                <i class="sidenav-toggler-line"></i>
-                <i class="sidenav-toggler-line"></i>
-                <i class="sidenav-toggler-line"></i>
-              </div>
-            </a>
-          </li>
-        </ul>
+        </ng-container>
+      </ol>
+      <h6 class="font-weight-bolder mb-0">Dashboard</h6>
+    </nav>
+    <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+      <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+        <li class="nav-item d-flex align-items-center">
+          <span class="nav-link-text ms-1">Modo Oscuro</span>&nbsp;&nbsp;
+          <div class="form-check form-switch ps-0 ms-auto my-auto">
+            <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version" onclick="darkMode(this)">
+          </div>
+        </li>
       </div>
+      <ul class="navbar-nav  justify-content-end">
+        <li class="nav-item d-flex align-items-center">
+          <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+            <i class="fa fa-user me-sm-1"></i>
+            <span class="d-sm-inline d-none"> {{username}} </span>
+          </a>
+        </li>
+        <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+          <a href="javascript:;" class="nav-link text-body p-0" onclick="toggleSidenav()">
+            <div class="sidenav-toggler-inner">
+              <i class="sidenav-toggler-line"></i>
+              <i class="sidenav-toggler-line"></i>
+              <i class="sidenav-toggler-line"></i>
+            </div>
+          </a>
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
