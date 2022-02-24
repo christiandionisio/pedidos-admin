@@ -14,49 +14,54 @@
                 </div>
             </div>
             <div class="card-body px-0 pb-2">
-                <div class="table-responsive" *ngIf="listProductos.length > 0">
+                <div class="table-responsive" *ngIf="listClientes.length > 0">
                     <table class="table align-items-center mb-0">
                         <thead>
                             <tr>
-                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nombre
+                                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    DNI
                                 </th>
                                 <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                    Tipo</th>
+                                    Nombres
+                                </th>
                                 <th
                                     class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Precio</th>
+                                    Apellidos
+                                </th>
                                 <th
                                     class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Stock</th>
+                                    Correo
+                                </th>
                                 <th
                                     class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    Operaciones</th>
+                                    Operaciones
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let producto of listProductos">
+                            <tr *ngFor="let cliente of listClientes">
                                 <td>
                                     <div class="d-flex px-2 py-1">
                                         <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm">{{producto.nombre}}</h6>
+                                            <h6 class="mb-0 text-sm">{{cliente.dni}}</h6>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="avatar-group mt-2">
-                                        <span class="text-xs font-weight-bold">{{producto.tipo}}</span>
+                                        <span class="text-xs font-weight-bold">{{cliente.nombres}}</span>
                                     </div>
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                    <span class="text-xs font-weight-bold"> ${{producto.precio}} </span>
+                                    <span class="text-xs font-weight-bold"> {{cliente.apellidos}} </span>
                                 </td>
                                 <td class="align-middle">
                                     <div class="progress-wrapper w-75 mx-auto">
-                                        <span class="text-xs font-weight-bold">{{producto.stock}} unidades</span>
+                                        <span class="text-xs font-weight-bold">{{cliente.correo}}</span>
                                     </div>
                                 </td>
                                 <td class="align-middle">
-                                    <div class="progress-wrapper w-75 mx-auto">
+                                    <!-- <div class="progress-wrapper w-75 mx-auto">
                                         <button type="button" class="btn btn-icon btn-info btn-tooltip btn-sm mr-5"
                                             data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar registro"
                                             data-container="body" data-animation="true" (click)="verProducto(producto)">
@@ -74,7 +79,7 @@
                                             (click)="eliminarRegistro(producto.id, producto.nombre)">
                                             <i class="material-icons md-16">delete</i>
                                         </button>
-                                    </div>
+                                    </div> -->
                                 </td>
                             </tr>
                         </tbody>
@@ -109,7 +114,7 @@
                         </ul>
                     </div>
                 </div>
-                <div *ngIf="listProductos.length === 0" class="card-body">
+                <div *ngIf="listClientes.length === 0" class="card-body">
                     <div class="alert alert-warning" role="alert">
                         <span class="alert-icon align-middle">
                             <span class="material-icons text-md">

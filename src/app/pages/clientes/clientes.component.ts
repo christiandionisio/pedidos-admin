@@ -21,7 +21,7 @@ export class ClientesComponent implements OnInit {
   isLastPage: boolean = false;
   totalPages: number = 1;
 
-  listProductos: Producto[] = [];
+  listClientes: Cliente[] = [];
 
   idProductoEliminado: String = '';
 
@@ -39,18 +39,13 @@ export class ClientesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.productosService.getProductosPageable(this.selectedPage, this.listSize).subscribe(
+
+    this.clienteService.getClientesPageable(this.selectedPage, this.listSize).subscribe(
       (response: any) => {
-        this.listProductos = response.content;
+        this.listClientes = response.content;
         this.isFirstPage = response.first;
         this.isLastPage = response.last;
         this.totalPages = response.totalPages;
-      }
-    );
-
-    this.clienteService.getClientes().subscribe(
-      (res: Cliente[]) => {
-        console.log(res);
       }
     );
      
@@ -58,19 +53,20 @@ export class ClientesComponent implements OnInit {
 
   getPages(actualPage: number) {
     if (this.isBusquedaByFiltersActive) {
-      this.productosService.getProductosPageableByFilters(actualPage, this.listSize, this.busquedaForm.value.nombre, this.busquedaForm.value.tipo)
-        .subscribe((response: any) => {
-          this.selectedPage = response.pageNumber;
-          this.listProductos = response.content;
-          this.isFirstPage = response.first;
-          this.isLastPage = response.last;
-          this.totalPages = response.totalPages;
-        }); 
+      //TODO: busqueda por filtros
+      // this.productosService.getProductosPageableByFilters(actualPage, this.listSize, this.busquedaForm.value.nombre, this.busquedaForm.value.tipo)
+      //   .subscribe((response: any) => {
+      //     this.selectedPage = response.pageNumber;
+      //     this.listClientes = response.content;
+      //     this.isFirstPage = response.first;
+      //     this.isLastPage = response.last;
+      //     this.totalPages = response.totalPages;
+      //   }); 
     } else {
-      this.productosService.getProductosPageable(actualPage, this.listSize).subscribe(
+      this.clienteService.getClientesPageable(actualPage, this.listSize).subscribe(
         (response: any) => {
           this.selectedPage = response.pageNumber;
-          this.listProductos = response.content;
+          this.listClientes = response.content;
           this.isFirstPage = response.first;
           this.isLastPage = response.last;
           this.totalPages = response.totalPages;
@@ -110,15 +106,15 @@ export class ClientesComponent implements OnInit {
       'success'
     );
 
-    if (this.listProductos.length === 1 && this.isLastPage) {
+    if (this.listClientes.length === 1 && this.isLastPage) {
       this.totalPages--;
       this.selectedPage--;
       this.getPages(this.selectedPage);
     } else if (!this.isLastPage) {
       this.getPages(this.selectedPage);
     } else {
-      const indexDeleted = this.listProductos.findIndex((producto) => producto.id === this.idProductoEliminado);
-      this.listProductos.splice(indexDeleted, 1);
+      const indexDeleted = this.listClientes.findIndex((producto) => producto.id === this.idProductoEliminado);
+      this.listClientes.splice(indexDeleted, 1);
     }
 
     this.idProductoEliminado = '';
@@ -185,7 +181,7 @@ export class ClientesComponent implements OnInit {
 
     this.productosService.getProductosPageableByFilters(this.selectedPage, this.listSize, formValue.nombre, formValue.tipo)
       .subscribe((response: any) => {
-        this.listProductos = response.content;
+        this.listClientes = response.content;
         this.isFirstPage = response.first;
         this.isLastPage = response.last;
         this.totalPages = response.totalPages;
