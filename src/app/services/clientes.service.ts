@@ -16,6 +16,10 @@ export class ClientesService {
     return this.http.get(`${BASE_URL}/clientes/pageable?page=${page}&size=${size}`);
   }
 
+  getClientes(page: number, size: number) {
+    return this.http.get(`${BASE_URL}/clientes`);
+  }
+
   // TODO: getClientesPageableByFilters
   // getClientesPageableByFilters(page: number, size: number, nombre: String, tipo: String) {
   //   return this.http.get(`${BASE_URL}/Clientes/pageable/search-by-filters?page=${page}&size=${size}&nombre=${nombre}&tipo=${tipo}`);
