@@ -4,6 +4,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { ModalProductoComponent } from './modal-producto/modal-producto.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ModalClienteComponent } from './modal-cliente/modal-cliente.component';
 
 
 
@@ -11,7 +12,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     NavbarComponent,
     FooterComponent,
-    ModalProductoComponent
+    ModalProductoComponent,
+    ModalClienteComponent
   ],
   imports: [
     CommonModule,
