@@ -23,11 +23,12 @@ export class ClientesComponent implements OnInit {
 
   listClientes: Cliente[] = [];
 
-  idProductoEliminado: String = '';
+  idClienteEliminado: String = '';
 
   public busquedaForm = this.fb.group({
-    nombre: [''],
-    tipo: [''],
+    dni: [''],
+    nombres: [''],
+    apellidos: [''],
   });
   public isLoading: boolean = false;
   private isBusquedaByFiltersActive: boolean = false;
@@ -75,11 +76,11 @@ export class ClientesComponent implements OnInit {
     }
   }
 
-  eliminarRegistro(id: String, productName: String) {
-    this.idProductoEliminado = id;
+  eliminarRegistro(id: String, nombreCliente: String) {
+    this.idClienteEliminado = id;
     
     Swal.fire({
-      title: `¿Está seguro(a) que desea eliminar "${productName}"?`,
+      title: `¿Está seguro(a) que desea eliminar a "${nombreCliente}"?`,
       text: "No será capaz de revertir esta operación.",
       icon: 'warning',
       showCancelButton: true,
@@ -89,7 +90,7 @@ export class ClientesComponent implements OnInit {
       confirmButtonText: '¡Sí, eliminar!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.productosService.eliminarProducto(id).subscribe({
+        this.clienteService.eliminarCliente(id).subscribe({
             next: this.handleEliminarResponseOk.bind(this),
             error: this.handleEliminarError.bind(this)
         }); 
@@ -101,8 +102,8 @@ export class ClientesComponent implements OnInit {
     console.log('Registro eliminado');
 
     Swal.fire(
-      '¡Producto Eliminado!',
-      'El producto ha sido eliminado',
+      'Cliente Eliminado!',
+      'El cliente ha sido eliminado',
       'success'
     );
 
@@ -113,17 +114,17 @@ export class ClientesComponent implements OnInit {
     } else if (!this.isLastPage) {
       this.getPages(this.selectedPage);
     } else {
-      const indexDeleted = this.listClientes.findIndex((producto) => producto.id === this.idProductoEliminado);
+      const indexDeleted = this.listClientes.findIndex((cliente) => cliente.id === this.idClienteEliminado);
       this.listClientes.splice(indexDeleted, 1);
     }
 
-    this.idProductoEliminado = '';
+    this.idClienteEliminado = '';
   }
 
   handleEliminarError(response: any) {
     if (response.status === 404) {
-      console.log('El producto ya no existe');
-      Swal.fire('¡Error!', 'El producto ya ha sido eliminado', 'error');
+      console.log('El cliente ya no existe');
+      Swal.fire('¡Error!', 'El cliente ya ha sido eliminado', 'error');
       return;
     }
     if (response.status === 401) {
@@ -134,18 +135,18 @@ export class ClientesComponent implements OnInit {
 
     Swal.fire('¡Error!', 'Error en los servicios, contacte con el administrador', 'error');
     console.log('Error en los servicios, contacte con el administrador ' + response.status ); 
-    this.idProductoEliminado = '';
+    this.idClienteEliminado = '';
   }
 
 
-  verProducto(producto: Producto) {
+  verCliente(cliente: Cliente) {
     const modalRef = this.modalService.open(ModalProductoComponent, { size: 'lg' });
-    modalRef.componentInstance.verProducto = producto;
+    modalRef.componentInstance.verCliente = cliente;
   }
 
-  editarProducto(producto: Producto) {
+  editarCliente(cliente: Cliente) {
     const modalRef = this.modalService.open(ModalProductoComponent, { size: 'lg' });
-    modalRef.componentInstance.editarProducto = producto;
+    modalRef.componentInstance.editarCliente = cliente;
     modalRef.componentInstance.isEditarOkResponse.subscribe((isEditarOk: any) => {
       if (isEditarOk) {
         this.getPages(this.selectedPage);

@@ -4,11 +4,11 @@
             <div class="card-header pb-0">
                 <div class="row">
                     <div class="col-lg-6 col-7">
-                        <h6>Lista de Productos</h6>
+                        <h6>Lista de Clientes</h6>
                     </div>
                     <div class="col-lg-6 col-5 my-auto text-end">
                         <button type="button" class="btn bg-gradient-info" (click)="agregarProducto()">
-                            <i class="material-icons">queue</i>&nbsp;&nbsp;Agregar Producto
+                            <i class="material-icons">queue</i>&nbsp;&nbsp;Agregar Cliente
                         </button>
                     </div>
                 </div>
@@ -61,25 +61,25 @@
                                     </div>
                                 </td>
                                 <td class="align-middle">
-                                    <!-- <div class="progress-wrapper w-75 mx-auto">
+                                    <div class="progress-wrapper w-75 mx-auto">
                                         <button type="button" class="btn btn-icon btn-info btn-tooltip btn-sm mr-5"
                                             data-bs-toggle="tooltip" data-bs-placement="top" title="Visualizar registro"
-                                            data-container="body" data-animation="true" (click)="verProducto(producto)">
+                                            data-container="body" data-animation="true" (click)="verCliente(cliente)">
                                             <i class="material-icons md-16">visibility</i>
                                         </button>
                                         <button type="button" class="btn btn-icon btn-warning btn-tooltip btn-sm mr-5"
                                             data-bs-toggle="tooltip" data-bs-placement="top" title="Editar registro"
                                             data-container="body" data-animation="true"
-                                            (click)="editarProducto(producto)">
+                                            (click)="editarCliente(cliente)">
                                             <i class="material-icons md-16">edit</i>
                                         </button>
                                         <button type="button" class="btn btn-icon btn-danger btn-tooltip btn-sm mr-5"
                                             data-bs-toggle="tooltip" data-bs-placement="top" title="Eliminar registro"
                                             data-container="body" data-animation="true"
-                                            (click)="eliminarRegistro(producto.id, producto.nombre)">
+                                            (click)="eliminarRegistro(cliente.id, cliente.nombres)">
                                             <i class="material-icons md-16">delete</i>
                                         </button>
-                                    </div> -->
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -130,17 +130,21 @@
     <div class="col-lg-4 col-md-6">
         <div class="card h-60">
             <div class="card-header pb-0">
-                <h6>Búsqueda de Productos</h6>
+                <h6>Búsqueda de Clientes</h6>
             </div>
             <div class="card-body p-3">
                 <form role="form" [formGroup]="busquedaForm" (ngSubmit)="onBusquedaFormSubmit()">
                     <div class="input-group input-group-outline my-3">
-                        <label class="form-label">Por Nombre</label>
-                        <input type="text" class="form-control" formControlName="nombre">
+                        <label class="form-label">Por DNI</label>
+                        <input type="text" class="form-control" formControlName="dni">
                     </div>
                     <div class="input-group input-group-outline my-3">
-                        <label class="form-label">Por Tipo</label>
-                        <input type="text" class="form-control" formControlName="tipo">
+                        <label class="form-label">Por Nombres</label>
+                        <input type="text" class="form-control" formControlName="nombres">
+                    </div>
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label">Por Apellidos</label>
+                        <input type="text" class="form-control" formControlName="apellidos">
                     </div>
                     <br>
                     <button type="submit" class="btn btn-success btn-lg w-100" [disabled]="isLoading">
