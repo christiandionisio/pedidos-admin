@@ -1,1 +1,123 @@
-<p>modal-cliente works!</p>
+<div class="modal-content">
+    <div class="modal-header">
+        <h6 class="modal-title font-weight-normal"  *ngIf="verCliente == undefined && editarCliente == undefined">Agregar Cliente</h6>
+        <h6 class="modal-title font-weight-normal" *ngIf="verCliente != undefined">Detalle Cliente</h6>
+        <h6 class="modal-title font-weight-normal" *ngIf="editarCliente != undefined">Editar Cliente</h6>
+    </div>
+    <form role="form" class="text-start" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-md">
+                    <div class="card bg-dark text-white border-0">
+                        <img class="card-img" *ngIf="urlImage" [src]="urlImage">
+                        <img class="card-img" *ngIf="!urlImage" src="./../../../assets/img/no-image.jpeg">
+                    </div>
+                    <div class="input-group input-group-outline my-1">
+                        <input #fileInput type="file" hidden (change)="onChange($event)" accept="image/*"> 
+                    </div>
+                    <button type="button" 
+                        *ngIf="this.verCliente == undefined"
+                        class="btn btn-outline-secondary" 
+                        (click)="fileInput.click()">
+                        <i class="fas fa-image fa-lg"></i> Seleccionar Archivo
+                    </button>
+                    {{(fileProductImage != null) ? fileProductImage.name : ''}}
+                </div>
+                <div class="col-md">
+                    <div [ngClass]="registerForm.controls['nombres'].invalid && isSubmited ? 
+                        'input-group input-group-outline my-3 is-invalid' : 
+                        'input-group input-group-outline my-3'"
+                        [ngClass]="verCliente != undefined || editarCliente != undefined ? 
+                        'input-group input-group-outline my-3 is-filled' : 
+                        'input-group input-group-outline my-3'">
+                        <label class="form-label">Nombres</label>
+                        <input type="text" class="form-control" formControlName="nombres"
+                            (focus)="onFocusInput($event)" 
+                            (focusout)="onFocusOutInput($event, 'nombres')">
+                        <div class="input-group invalid-field"
+                            *ngIf="registerForm.controls['nombres'].invalid && isSubmited">
+                            {{errorMessages.nombres}}
+                        </div>
+                    </div>
+                    <div [ngClass]="registerForm.controls['apellidos'].invalid && isSubmited ? 
+                        'input-group input-group-outline my-3 is-invalid' : 
+                        'input-group input-group-outline my-3'"
+                        [ngClass]="verCliente != undefined || editarCliente != undefined ? 
+                        'input-group input-group-outline my-3 is-filled' : 
+                        'input-group input-group-outline my-3'">
+                        <label class="form-label">Apellidos</label>
+                        <input type="text" class="form-control" formControlName="apellidos"
+                            (focus)="onFocusInput($event)" (focusout)="onFocusOutInput($event, 'apellidos')">
+                        <div class="input-group invalid-field"
+                            *ngIf="registerForm.controls['apellidos'].invalid && isSubmited">
+                            {{errorMessages.apellidos}}
+                        </div>
+                    </div>
+                    <div [ngClass]="registerForm.controls['dni'].invalid && isSubmited ? 
+                        'input-group input-group-outline my-3 is-invalid' : 
+                        'input-group input-group-outline my-3'"
+                        [ngClass]="verCliente != undefined || editarCliente != undefined ? 
+                        'input-group input-group-outline my-3 is-filled' : 
+                        'input-group input-group-outline my-3'">
+                        <label class="form-label">DNI</label>
+                        <input type="text" class="form-control" formControlName="dni"
+                            (focus)="onFocusInput($event)" (focusout)="onFocusOutInput($event, 'dni')">
+                        <div class="input-group invalid-field"
+                            *ngIf="registerForm.controls['dni'].invalid && isSubmited">
+                            {{errorMessages.dni}}
+                        </div>
+                    </div>
+                    <div [ngClass]="registerForm.controls['correo'].invalid && isSubmited ? 
+                        'input-group input-group-outline my-3 is-invalid' : 
+                        'input-group input-group-outline my-3'"
+                        [ngClass]="verCliente != undefined || editarCliente != undefined ? 
+                        'input-group input-group-outline my-3 is-filled' : 
+                        'input-group input-group-outline my-3'">
+                        <label class="form-label">Correo</label>
+                        <input type="text" class="form-control" formControlName="correo" min="0"
+                            (focus)="onFocusInput($event)" (focusout)="onFocusOutInput($event, 'correo')">
+                        <div class="input-group invalid-field"
+                            *ngIf="registerForm.controls['correo'].invalid && isSubmited">
+                            {{errorMessages.correo}}
+                        </div>
+                    </div>
+                    <div [ngClass]="registerForm.controls['password'].invalid && isSubmited ? 
+                        'input-group input-group-outline my-3 is-invalid' : 
+                        'input-group input-group-outline my-3'"
+                        [ngClass]="verCliente != undefined || editarCliente != undefined ? 
+                        'input-group input-group-outline my-3 is-filled' : 
+                        'input-group input-group-outline my-3'">
+                        <label class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" formControlName="password" min="0"
+                            (focus)="onFocusInput($event)" (focusout)="onFocusOutInput($event, 'password')">
+                        <div class="input-group invalid-field"
+                            *ngIf="registerForm.controls['password'].invalid && isSubmited">
+                            {{errorMessages.password}}
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn bg-gradient-secondary" 
+                        (click)="cerrarModal()"
+                        *ngIf="verCliente == undefined">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn bg-gradient-primary"
+                        *ngIf="verCliente == undefined && editarCliente == undefined">
+                        Registrar
+                    </button>
+                    <button type="submit" class="btn bg-gradient-primary"
+                        *ngIf="editarCliente != undefined">
+                        Editar
+                    </button>
+                    <button type="button" class="btn bg-gradient-success"
+                        *ngIf="verCliente != undefined"
+                        (click)="cerrarModal()">
+                        Regregar
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
