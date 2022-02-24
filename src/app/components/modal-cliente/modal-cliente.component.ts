@@ -60,6 +60,9 @@ export class ModalClienteComponent implements OnInit {
     this.registerForm.controls['apellidos'].setValue(cliente.apellidos);
     this.registerForm.controls['dni'].setValue(cliente.dni);
     this.registerForm.controls['correo'].setValue(cliente.correo);
+    
+    this.registerForm.controls['password'].setValue('********');
+    this.registerForm.controls['password'].disable(); 
   }
 
   bloquearInputs() {
@@ -98,10 +101,6 @@ export class ModalClienteComponent implements OnInit {
   updateCliente(cliente: Cliente) {
 
     cliente.id = this.editarCliente.id;
-    cliente.nombres = this.editarCliente.nombres;
-    cliente.apellidos = this.editarCliente.apellidos;
-    cliente.dni = this.editarCliente.dni;
-    cliente.correo = this.editarCliente.correo;
 
     this.clientesService.updateCliente(cliente).subscribe({
       next: this.handleUpdateResponse.bind(this),
