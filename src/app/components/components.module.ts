@@ -23,6 +23,7 @@ import { ModalClienteComponent } from './modal-cliente/modal-cliente.component';
     NavbarComponent,
     FooterComponent,
     ModalProductoComponent,
+    ModalClienteComponent,
   ]
 })
 export class ComponentsModule { }

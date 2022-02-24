@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalProductoComponent } from 'src/app/components/modal-producto/modal-producto.component';
+import { ModalClienteComponent } from 'src/app/components/modal-cliente/modal-cliente.component';
 import { Cliente } from 'src/app/interfaces/clientes';
 import { ClientesService } from 'src/app/services/clientes.service';
-import { ProductosService } from 'src/app/services/productos.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -32,8 +31,7 @@ export class ClientesComponent implements OnInit {
   public isLoading: boolean = false;
   private isBusquedaByFiltersActive: boolean = false;
 
-  constructor(private productosService: ProductosService,
-              private clienteService: ClientesService,
+  constructor(private clienteService: ClientesService,
               public modalService: NgbModal,
               private fb: FormBuilder) { 
   }
@@ -138,13 +136,14 @@ export class ClientesComponent implements OnInit {
   }
 
 
+  // TODO: AGREGAR AVATAR
   verCliente(cliente: Cliente) {
-    const modalRef = this.modalService.open(ModalProductoComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(ModalClienteComponent, { size: 'lg' });
     modalRef.componentInstance.verCliente = cliente;
   }
 
   editarCliente(cliente: Cliente) {
-    const modalRef = this.modalService.open(ModalProductoComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(ModalClienteComponent, { size: 'lg' });
     modalRef.componentInstance.editarCliente = cliente;
     modalRef.componentInstance.isEditarOkResponse.subscribe((isEditarOk: any) => {
       if (isEditarOk) {
@@ -154,7 +153,7 @@ export class ClientesComponent implements OnInit {
   }
 
   agregarProducto() {
-    const modalRef = this.modalService.open(ModalProductoComponent, { size: 'lg' });
+    const modalRef = this.modalService.open(ModalClienteComponent, { size: 'lg' });
   }
 
   onBusquedaFormSubmit() {
@@ -178,15 +177,15 @@ export class ClientesComponent implements OnInit {
     } else {
       this.isBusquedaByFiltersActive = true;
     }
-
-    this.productosService.getProductosPageableByFilters(this.selectedPage, this.listSize, formValue.nombre, formValue.tipo)
-      .subscribe((response: any) => {
-        this.listClientes = response.content;
-        this.isFirstPage = response.first;
-        this.isLastPage = response.last;
-        this.totalPages = response.totalPages;
-        this.isLoading = false;
-      }); 
+    // TODO:
+    // this.productosService.getProductosPageableByFilters(this.selectedPage, this.listSize, formValue.nombre, formValue.tipo)
+    //   .subscribe((response: any) => {
+    //     this.listClientes = response.content;
+    //     this.isFirstPage = response.first;
+    //     this.isLastPage = response.last;
+    //     this.totalPages = response.totalPages;
+    //     this.isLoading = false;
+    //   }); 
   }
 
 }
