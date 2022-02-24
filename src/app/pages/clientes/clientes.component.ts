@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalProductoComponent } from 'src/app/components/modal-producto/modal-producto.component';
+import { Cliente } from 'src/app/interfaces/clientes';
 import { Producto } from 'src/app/interfaces/productos';
+import { ClientesService } from 'src/app/services/clientes.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import Swal from 'sweetalert2';
 
@@ -31,6 +33,7 @@ export class ClientesComponent implements OnInit {
   private isBusquedaByFiltersActive: boolean = false;
 
   constructor(private productosService: ProductosService,
+              private clienteService: ClientesService,
               public modalService: NgbModal,
               private fb: FormBuilder) { 
   }
@@ -42,6 +45,12 @@ export class ClientesComponent implements OnInit {
         this.isFirstPage = response.first;
         this.isLastPage = response.last;
         this.totalPages = response.totalPages;
+      }
+    );
+
+    this.clienteService.getClientes().subscribe(
+      (res: Cliente[]) => {
+        console.log(res);
       }
     );
      
