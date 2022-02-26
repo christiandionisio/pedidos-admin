@@ -146,6 +146,10 @@
                         <label class="form-label">Por Apellidos</label>
                         <input type="text" class="form-control" formControlName="apellidos">
                     </div>
+                    <div class="input-group input-group-outline my-3">
+                        <label class="form-label">Por Correo</label>
+                        <input type="text" class="form-control" formControlName="correo">
+                    </div>
                     <br>
                     <button type="submit" class="btn btn-success btn-lg w-100" [disabled]="isLoading">
                         <span class="material-icons" *ngIf="!isLoading">search</span>

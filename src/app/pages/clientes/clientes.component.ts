@@ -27,6 +27,7 @@ export class ClientesComponent implements OnInit {
     dni: [''],
     nombres: [''],
     apellidos: [''],
+    correo: [''],
   });
   public isLoading: boolean = false;
   private isBusquedaByFiltersActive: boolean = false;
@@ -51,15 +52,15 @@ export class ClientesComponent implements OnInit {
 
   getPages(actualPage: number) {
     if (this.isBusquedaByFiltersActive) {
-      //TODO: busqueda por filtros
-      // this.productosService.getProductosPageableByFilters(actualPage, this.listSize, this.busquedaForm.value.nombre, this.busquedaForm.value.tipo)
-      //   .subscribe((response: any) => {
-      //     this.selectedPage = response.pageNumber;
-      //     this.listClientes = response.content;
-      //     this.isFirstPage = response.first;
-      //     this.isLastPage = response.last;
-      //     this.totalPages = response.totalPages;
-      //   }); 
+      this.clienteService.getClientesPageableByFilters(actualPage, this.listSize, 
+        this.busquedaForm.value.dni, this.busquedaForm.value.nombres, this.busquedaForm.value.apellidos, this.busquedaForm.value.correo)
+        .subscribe((response: any) => {
+          this.selectedPage = response.pageNumber;
+          this.listClientes = response.content;
+          this.isFirstPage = response.first;
+          this.isLastPage = response.last;
+          this.totalPages = response.totalPages;
+        }); 
     } else {
       this.clienteService.getClientesPageable(actualPage, this.listSize).subscribe(
         (response: any) => {
@@ -177,15 +178,16 @@ export class ClientesComponent implements OnInit {
     } else {
       this.isBusquedaByFiltersActive = true;
     }
-    // TODO:
-    // this.productosService.getProductosPageableByFilters(this.selectedPage, this.listSize, formValue.nombre, formValue.tipo)
-    //   .subscribe((response: any) => {
-    //     this.listClientes = response.content;
-    //     this.isFirstPage = response.first;
-    //     this.isLastPage = response.last;
-    //     this.totalPages = response.totalPages;
-    //     this.isLoading = false;
-    //   }); 
+
+    this.clienteService.getClientesPageableByFilters(this.selectedPage, this.listSize, formValue.dni, 
+      formValue.nombres, formValue.apellidos, formValue.correo)
+      .subscribe((response: any) => {
+        this.listClientes = response.content;
+        this.isFirstPage = response.first;
+        this.isLastPage = response.last;
+        this.totalPages = response.totalPages;
+        this.isLoading = false;
+      }); 
   }
 
 }
