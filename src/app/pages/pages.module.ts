@@ -12,6 +12,7 @@ import { RegisterComponent } from './register/register.component';
 import { ComponentsModule } from '../components/components.module';
 import { ProductosComponent } from './productos/productos.component';
 import { ModalProductoComponent } from '../components/modal-producto/modal-producto.component';
+import { TarjetasComponent } from './tarjetas/tarjetas.component';
 
 
 
@@ -21,7 +22,8 @@ import { ModalProductoComponent } from '../components/modal-producto/modal-produ
     ClientesComponent,
     LoginComponent,
     RegisterComponent,
-    ProductosComponent
+    ProductosComponent,
+    TarjetasComponent
   ],
   imports: [
     CommonModule,
