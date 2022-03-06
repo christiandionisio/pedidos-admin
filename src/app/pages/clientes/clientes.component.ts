@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { NavigationExtras, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ModalClienteComponent } from 'src/app/components/modal-cliente/modal-cliente.component';
 import { Cliente } from 'src/app/interfaces/clientes';
@@ -34,7 +35,8 @@ export class ClientesComponent implements OnInit {
 
   constructor(private clienteService: ClientesService,
               public modalService: NgbModal,
-              private fb: FormBuilder) { 
+              private fb: FormBuilder,
+              private router: Router) { 
   }
 
   ngOnInit(): void {
@@ -188,6 +190,13 @@ export class ClientesComponent implements OnInit {
         this.totalPages = response.totalPages;
         this.isLoading = false;
       }); 
+  }
+
+  mostrarDirecciones(cliente: Cliente) {
+    const navigationExtras: NavigationExtras = {
+      state: cliente
+    };
+    this.router.navigate(['/dashboard/direcciones'], navigationExtras);
   }
 
 }

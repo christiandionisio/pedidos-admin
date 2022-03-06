@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-direcciones',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DireccionesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private activatedRoute: Router) { 
+    console.log(this.activatedRoute.getCurrentNavigation()?.extras);
+  }
 
   ngOnInit(): void {
+    
+    
   }
 
 }
