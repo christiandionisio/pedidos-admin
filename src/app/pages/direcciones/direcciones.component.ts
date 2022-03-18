@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { DireccionesService } from 'src/app/services/direcciones.service';
 
 @Component({
   selector: 'app-direcciones',
@@ -8,12 +9,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class DireccionesComponent implements OnInit {
 
-  constructor(private activatedRoute: Router) { 
-    console.log(this.activatedRoute.getCurrentNavigation()?.extras);
+  listaDirecciones: any = [];
+
+  constructor(private route: ActivatedRoute, 
+    private direccionesService: DireccionesService) { 
   }
 
   ngOnInit(): void {
     
+    this.direccionesService.getDireccionesByIdCliente(this.route.snapshot.paramMap.get('idCliente')!)
+      .subscribe((resp) => {
+        this.listaDirecciones = resp;
+        console.log(this.listaDirecciones);
+        
+      });
     
   }
 

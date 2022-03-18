@@ -193,10 +193,7 @@ export class ClientesComponent implements OnInit {
   }
 
   mostrarDirecciones(cliente: Cliente) {
-    const navigationExtras: NavigationExtras = {
-      state: cliente
-    };
-    this.router.navigate(['/dashboard/direcciones'], navigationExtras);
+    this.router.navigateByUrl(`/dashboard/direcciones/${cliente.id}`);
   }
 
 }
