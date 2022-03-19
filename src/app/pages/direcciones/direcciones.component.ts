@@ -10,7 +10,7 @@ import { DireccionesService } from 'src/app/services/direcciones.service';
 export class DireccionesComponent implements OnInit {
 
   listaDirecciones: any = [];
-  direccionPrincipal: any = {};
+  direccionPrincipal: any;
 
   constructor(private route: ActivatedRoute, 
     private direccionesService: DireccionesService) { 
