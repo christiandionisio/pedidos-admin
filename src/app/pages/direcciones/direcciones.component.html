@@ -152,10 +152,10 @@
               *ngFor="let direccion of listaDirecciones">
             <div class="d-flex flex-column">
               <h6 class="mb-1 text-dark font-weight-bold text-sm">{{direccion.nombre}} {{direccion.apellidos}}</h6>
-              <span class="text-xs">{{direccion.celular}}</span>
+              <span class="text-xs">{{direccion.distrito}}</span>
             </div>
             <div class="d-flex align-items-center text-sm">
-              {{direccion.idDistrito}}&nbsp;&nbsp;&nbsp;
+              {{direccion.departamento}}&nbsp;&nbsp;&nbsp;
               <button type="button" class="btn btn-icon btn-warning btn-tooltip btn-sm mr-5" data-bs-toggle="tooltip"
                 data-bs-placement="top" title="Editar registro" data-container="body" data-animation="true">
                 <i class="material-icons md-16">edit</i>
