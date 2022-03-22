@@ -9,13 +9,10 @@
               'input-group input-group-dynamic is-filled' : 
               'input-group input-group-dynamic'">
               <label for="exampleDataList" class="form-label">DNI del Cliente</label>
-              <input class="form-control" list="dnilistOptions" id="exampleDataList" 
-                [value]="(clienteSeleccionado != undefined) ? clienteSeleccionado.dni : '' ">
-              <datalist id="dnilistOptions">
-                <option *ngFor="let cliente of listaClientes" [value]="cliente.dni"> 
-                  {{cliente.dni}} - {{cliente.nombres}} {{cliente.apellidos}}
-                </option>
-              </datalist>
+              <input class="form-control"
+                [value]="(clienteSeleccionado != undefined) ? clienteSeleccionado.dni : '' " 
+                disabled
+              >
             </div>
           </div>
           <div class="col-12 col-sm-6 mt-3 mt-sm-0">
@@ -63,15 +60,12 @@
               'input-group input-group-dynamic is-filled' : 
               'input-group input-group-dynamic'">
               <label for="exampleDataList" class="form-label">Departamento</label>
-              <input class="form-control" list="datalistDepartamentos" id="departamentoInput"
-                [value]="(direccionPrincipal != undefined) ? direccionPrincipal.departamento : ''">
-              <datalist id="datalistDepartamentos">
-                <option value="78754653">
-                <option value="78754651">
-                <option value="78754633">
-                <option value="78754633">
-                <option value="78714633">
-              </datalist>
+              <select class="form-control">
+                <option [ngValue]="null" disabled>Seleccione un departamento</option>
+                <option *ngFor="let departamento of departamentoOptions" [value]="departamento.id">
+                  {{departamento.nombre}}
+                </option>
+              </select>
             </div>
           </div>
           <div class="col-3">

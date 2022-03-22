@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Cliente } from 'src/app/interfaces/clientes';
+import { Departamento } from 'src/app/interfaces/departamentos';
 import { ClientesService } from 'src/app/services/clientes.service';
+import { DepartamentoService } from 'src/app/services/departamento.service';
 import { DireccionesService } from 'src/app/services/direcciones.service';
 
 @Component({
@@ -15,37 +17,17 @@ export class DireccionesComponent implements OnInit {
   direccionPrincipal: any;
 
   clienteSeleccionado!: Cliente;
-  listaClientes: Cliente [] = [
-    {
-      id: 'asdasdsadsa',
-      nombres: 'Christian',
-      apellidos: 'Dionisio',
-      dni: '78395738',
-      correo: 'test@test.com',
-    },
-    {
-      id: 'asdasdsadsa',
-      nombres: 'Christian',
-      apellidos: 'Dionisio',
-      dni: '78395738',
-      correo: 'test@test.com',
-    },
-    {
-      id: 'asdasdsadsa',
-      nombres: 'Christian',
-      apellidos: 'Dionisio',
-      dni: '78395738',
-      correo: 'test@test.com',
-    }
-  ];
+  departamentoOptions: Departamento[] = [];
 
   constructor(private route: ActivatedRoute, 
     private direccionesService: DireccionesService,
-    private clienteService: ClientesService) { 
+    private clienteService: ClientesService,
+    private departamentoService: DepartamentoService) { 
   }
 
   ngOnInit(): void {
     this.getDireccionesByCliente();
+    this.getDepartamentosList();
   }
 
   getDireccionesByCliente() {
@@ -53,6 +35,8 @@ export class DireccionesComponent implements OnInit {
       .subscribe((resp) => {
         this.listaDirecciones = resp;
         this.direccionPrincipal = this.listaDirecciones[0];
+        console.log(this.direccionPrincipal);
+        
         this.getClienteById(this.direccionPrincipal.idCliente);
       });
   }
@@ -60,6 +44,12 @@ export class DireccionesComponent implements OnInit {
   getClienteById(idCliente: string) {
     this.clienteService.getClientesById(idCliente).subscribe( (res: any) => {
       this.clienteSeleccionado = res;
+    });
+  }
+
+  getDepartamentosList () {
+    this.departamentoService.getDepartamentoList().subscribe( (res: any) => {
+      this.departamentoOptions = res;
     });
   }
 

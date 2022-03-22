@@ -28,6 +28,10 @@ export class ClientesService {
     return this.http.get(`${BASE_URL}/clientes/pageable/search-by-filters?page=${page}&size=${size}&dni=${dni}&nombres=${nombres}&apellidos=${apellidos}&correo=${correo}`);
   }
 
+  getClientesByDni(dni: String) {
+    return this.http.get(`${BASE_URL}/clientes/pageable/search-by-filters?page=0&size=10&dni=${dni}`);
+  }
+
   registrarCliente(cliente: Cliente) {
     return this.http.post(`${BASE_URL}/clientes`, cliente, {observe: "response"});
   }
