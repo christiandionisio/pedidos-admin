@@ -9,14 +9,12 @@
               'input-group input-group-dynamic is-filled' : 
               'input-group input-group-dynamic'">
               <label for="exampleDataList" class="form-label">DNI del Cliente</label>
-              <input class="form-control" list="datalistOptions" id="exampleDataList" 
-                [value]="(direccionPrincipal != undefined) ? direccionPrincipal.idCliente : '' ">
-              <datalist id="datalistOptions">
-                <option value="78754653">
-                <option value="78754651">
-                <option value="78754633">
-                <option value="78754633">
-                <option value="78714633">
+              <input class="form-control" list="dnilistOptions" id="exampleDataList" 
+                [value]="(clienteSeleccionado != undefined) ? clienteSeleccionado.dni : '' ">
+              <datalist id="dnilistOptions">
+                <option *ngFor="let cliente of listaClientes" [value]="cliente.dni"> 
+                  {{cliente.dni}} - {{cliente.nombres}} {{cliente.apellidos}}
+                </option>
               </datalist>
             </div>
           </div>

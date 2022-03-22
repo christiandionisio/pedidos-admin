@@ -20,6 +20,10 @@ export class ClientesService {
     return this.http.get<Cliente[]>(`${BASE_URL}/clientes`);
   }
 
+  getClientesById(id: String) {
+    return this.http.get<Cliente>(`${BASE_URL}/clientes/${id}`);
+  }
+
   getClientesPageableByFilters(page: number, size: number, dni: String, nombres: String, apellidos: String, correo: String) {
     return this.http.get(`${BASE_URL}/clientes/pageable/search-by-filters?page=${page}&size=${size}&dni=${dni}&nombres=${nombres}&apellidos=${apellidos}&correo=${correo}`);
   }

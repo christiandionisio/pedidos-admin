@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Cliente } from 'src/app/interfaces/clientes';
+import { ClientesService } from 'src/app/services/clientes.service';
 import { DireccionesService } from 'src/app/services/direcciones.service';
 
 @Component({
@@ -12,8 +14,34 @@ export class DireccionesComponent implements OnInit {
   listaDirecciones: any = [];
   direccionPrincipal: any;
 
+  clienteSeleccionado!: Cliente;
+  listaClientes: Cliente [] = [
+    {
+      id: 'asdasdsadsa',
+      nombres: 'Christian',
+      apellidos: 'Dionisio',
+      dni: '78395738',
+      correo: 'test@test.com',
+    },
+    {
+      id: 'asdasdsadsa',
+      nombres: 'Christian',
+      apellidos: 'Dionisio',
+      dni: '78395738',
+      correo: 'test@test.com',
+    },
+    {
+      id: 'asdasdsadsa',
+      nombres: 'Christian',
+      apellidos: 'Dionisio',
+      dni: '78395738',
+      correo: 'test@test.com',
+    }
+  ];
+
   constructor(private route: ActivatedRoute, 
-    private direccionesService: DireccionesService) { 
+    private direccionesService: DireccionesService,
+    private clienteService: ClientesService) { 
   }
 
   ngOnInit(): void {
@@ -25,8 +53,14 @@ export class DireccionesComponent implements OnInit {
       .subscribe((resp) => {
         this.listaDirecciones = resp;
         this.direccionPrincipal = this.listaDirecciones[0];
-        console.log(this.direccionPrincipal);
+        this.getClienteById(this.direccionPrincipal.idCliente);
       });
+  }
+
+  getClienteById(idCliente: string) {
+    this.clienteService.getClientesById(idCliente).subscribe( (res: any) => {
+      this.clienteSeleccionado = res;
+    });
   }
 
 }
