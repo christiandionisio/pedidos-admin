@@ -8,6 +8,8 @@ import { Provincia } from 'src/app/interfaces/provincias';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { DepartamentoService } from 'src/app/services/departamento.service';
 import { DireccionesService } from 'src/app/services/direcciones.service';
+import { DistritoService } from 'src/app/services/distrito.service';
+import { ProvinciaService } from 'src/app/services/provincia.service';
 
 @Component({
   selector: 'app-direcciones',
@@ -46,12 +48,16 @@ export class DireccionesComponent implements OnInit {
     private direccionesService: DireccionesService,
     private clienteService: ClientesService,
     private departamentoService: DepartamentoService,
+    private provinciaService: ProvinciaService,
+    private distritoService: DistritoService,
     private fb: FormBuilder) { 
   }
 
   ngOnInit(): void {
     this.getDireccionesByCliente();
     this.getDepartamentosList();
+    this.getProvinciasList();
+    this.getDistritosList();
     // this.direccionForm.get('dni')?.disable();
   }
 
@@ -75,6 +81,18 @@ export class DireccionesComponent implements OnInit {
   getDepartamentosList () {
     this.departamentoService.getDepartamentoList().subscribe( (res: any) => {
       this.departamentoOptions = res;
+    });
+  }
+
+  getProvinciasList() {
+    this.provinciaService.getProvinciaList().subscribe( (res: any) => {
+      this.provinciaOptions = res;
+    });
+  }
+
+  getDistritosList() {
+    this.distritoService.getDistritoList().subscribe( (res: any) => {
+      this.distritoOptions = res;
     });
   }
 
