@@ -60,21 +60,7 @@ export class DireccionesComponent implements OnInit {
       .subscribe((resp) => {
         this.listaDirecciones = resp;
         this.direccionPrincipal = this.listaDirecciones[0];
-
-        this.direccionForm.controls['celular'].setValue(this.direccionPrincipal.celular);
-        this.direccionForm.controls['nombres'].setValue(this.direccionPrincipal.nombre);
-        this.direccionForm.controls['apellidos'].setValue(this.direccionPrincipal.apellidos);
-        this.direccionForm.controls['telefono'].setValue(this.direccionPrincipal.telefono);
-        this.direccionForm.controls['departamento'].setValue(this.direccionPrincipal.departamento);
-        this.direccionForm.controls['provincia'].setValue(this.direccionPrincipal.provincia);
-        this.direccionForm.controls['distrito'].setValue(this.direccionPrincipal.distrito);
-        this.direccionForm.controls['tipoDireccion'].setValue(this.direccionPrincipal.tipoDireccion);
-        this.direccionForm.controls['direccion'].setValue(this.direccionPrincipal.direccion);
-        this.direccionForm.controls['nroLote'].setValue(this.direccionPrincipal.nroLote);
-        this.direccionForm.controls['depto'].setValue(this.direccionPrincipal.depto);
-        this.direccionForm.controls['urbanizacion'].setValue(this.direccionPrincipal.urbanizacion);
-        this.direccionForm.controls['referencia'].setValue(this.direccionPrincipal.referencia);
-
+        this.setInitialFormValue();
         this.getClienteById(this.direccionPrincipal.idCliente);
       });
   }
@@ -94,6 +80,22 @@ export class DireccionesComponent implements OnInit {
 
   goToPreviousPage() {
     this.router.navigate(['..']);
+  }
+
+  setInitialFormValue() {
+    this.direccionForm.controls['celular'].setValue(this.direccionPrincipal.celular);
+    this.direccionForm.controls['nombres'].setValue(this.direccionPrincipal.nombre);
+    this.direccionForm.controls['apellidos'].setValue(this.direccionPrincipal.apellidos);
+    this.direccionForm.controls['telefono'].setValue(this.direccionPrincipal.telefono);
+    this.direccionForm.controls['departamento'].setValue(this.direccionPrincipal.departamento);
+    this.direccionForm.controls['provincia'].setValue(this.direccionPrincipal.provincia);
+    this.direccionForm.controls['distrito'].setValue(this.direccionPrincipal.distrito);
+    this.direccionForm.controls['tipoDireccion'].setValue(this.direccionPrincipal.tipoDireccion);
+    this.direccionForm.controls['direccion'].setValue(this.direccionPrincipal.direccion);
+    this.direccionForm.controls['nroLote'].setValue(this.direccionPrincipal.nroLote);
+    this.direccionForm.controls['depto'].setValue(this.direccionPrincipal.depto);
+    this.direccionForm.controls['urbanizacion'].setValue(this.direccionPrincipal.urbanizacion);
+    this.direccionForm.controls['referencia'].setValue(this.direccionPrincipal.referencia);
   }
 
   onSubmit() {
