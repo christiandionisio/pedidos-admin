@@ -3,168 +3,177 @@
     <div class="card">
       <div class="card-body">
         <h5 class="font-weight-bolder">Dirección del Cliente</h5>
-        <div class="row mt-4">
-          <div class="col-12 col-sm-6">
-            <div [ngClass]="direccionPrincipal != undefined ? 
-              'input-group input-group-dynamic is-filled' : 
-              'input-group input-group-dynamic'">
-              <label for="exampleDataList" class="form-label">DNI del Cliente</label>
-              <input class="form-control"
-                [value]="(clienteSeleccionado != undefined) ? clienteSeleccionado.dni : '' " 
-                disabled
-              >
+        <form (submit)="onSubmit()">
+          <div class="row mt-4">
+            <div class="col-12 col-sm-6">
+              <div [ngClass]="direccionPrincipal != undefined ? 
+                'input-group input-group-dynamic is-filled' : 
+                'input-group input-group-dynamic'">
+                <label for="exampleDataList" class="form-label">DNI del Cliente</label>
+                <input class="form-control"
+                  [value]="(clienteSeleccionado != undefined) ? clienteSeleccionado.dni : '' " 
+                  disabled
+                >
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+              <div [ngClass]="direccionPrincipal != undefined ? 
+                'input-group input-group-dynamic is-filled' : 
+                'input-group input-group-dynamic'">
+                <label class="form-label">Celular</label>
+                <input type="text" class="form-control w-100" onfocus="focused(this)" onfocusout="defocused(this)" 
+                  [value]="(direccionPrincipal != undefined) ? direccionPrincipal.celular : ''">
+              </div>
             </div>
           </div>
-          <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-            <div [ngClass]="direccionPrincipal != undefined ? 
-              'input-group input-group-dynamic is-filled' : 
-              'input-group input-group-dynamic'">
-              <label class="form-label">Celular</label>
-              <input type="text" class="form-control w-100" onfocus="focused(this)" onfocusout="defocused(this)" 
-                [value]="(direccionPrincipal != undefined) ? direccionPrincipal.celular : ''">
+          <div class="row mt-4">
+            <div class="col-3">
+              <div [ngClass]="direccionPrincipal != undefined ? 
+                'input-group input-group-dynamic is-filled' : 
+                'input-group input-group-dynamic'">
+                <label class="form-label">Nombres</label>
+                <input type="text" class="form-control w-100" onfocus="focused(this)" onfocusout="defocused(this)"
+                  [value]="(direccionPrincipal != undefined) ? direccionPrincipal.nombre : ''">
+              </div>
+            </div>
+            <div class="col-3">
+              <div [ngClass]="direccionPrincipal != undefined ? 
+                'input-group input-group-dynamic is-filled' : 
+                'input-group input-group-dynamic'">
+                <label class="form-label">Apellidos</label>
+                <input type="text" class="form-control w-100" onfocus="focused(this)" onfocusout="defocused(this)"
+                  [value]="(direccionPrincipal != undefined) ? direccionPrincipal.apellidos : ''">
+              </div>
+            </div>
+            <div class="col-3">
+              <div [ngClass]="direccionPrincipal != undefined ? 
+                'input-group input-group-dynamic is-filled' : 
+                'input-group input-group-dynamic'">
+                <label class="form-label">Teléfono</label>
+                <input type="text" class="form-control w-100" onfocus="focused(this)" onfocusout="defocused(this)"
+                  [value]="(direccionPrincipal != undefined) ? direccionPrincipal.telefono : ''">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row mt-4">
-          <div class="col-3">
-            <div [ngClass]="direccionPrincipal != undefined ? 
-              'input-group input-group-dynamic is-filled' : 
-              'input-group input-group-dynamic'">
-              <label class="form-label">Nombres</label>
-              <input type="text" class="form-control w-100" onfocus="focused(this)" onfocusout="defocused(this)"
-                [value]="(direccionPrincipal != undefined) ? direccionPrincipal.nombre : ''">
+          <div class="row mt-5">
+            <div class="col-3">
+              <div [ngClass]="direccionPrincipal != undefined ? 
+                'input-group input-group-dynamic is-filled' : 
+                'input-group input-group-dynamic'">
+                <label for="exampleDataList" class="form-label">Departamento</label>
+                <select class="form-control">
+                  <option [ngValue]="null" disabled>Seleccione un departamento</option>
+                  <option *ngFor="let departamento of departamentoOptions" [value]="departamento.id">
+                    {{departamento.nombre}}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="col-3">
+              <div [ngClass]="direccionPrincipal != undefined ? 
+                'input-group input-group-dynamic is-filled' : 
+                'input-group input-group-dynamic'">
+                <label for="exampleDataList" class="form-label">Provincia</label>
+                <input class="form-control" list="datalistProvincias" id="provinciaInput"
+                  [value]="(direccionPrincipal != undefined) ? direccionPrincipal.provincia : ''">
+                <datalist id="datalistProvincias">
+                  <option value="78754653">
+                  <option value="78754651">
+                  <option value="78754633">
+                  <option value="78754633">
+                  <option value="78714633">
+                </datalist>
+              </div>
+            </div>
+            <div class="col-4">
+              <div [ngClass]="direccionPrincipal != undefined ? 
+                'input-group input-group-dynamic is-filled' : 
+                'input-group input-group-dynamic'">
+                <label for="exampleDataList" class="form-label">Distrito</label>
+                <input class="form-control" list="datalistDistritos" id="distritoInput"
+                  [value]="(direccionPrincipal != undefined) ? direccionPrincipal.distrito : ''">
+                <datalist id="datalistDistritos">
+                  <option value="78754653">
+                  <option value="78754651">
+                  <option value="78754633">
+                  <option value="78754633">
+                  <option value="78714633">
+                </datalist>
+              </div>
             </div>
           </div>
-          <div class="col-3">
-            <div [ngClass]="direccionPrincipal != undefined ? 
-              'input-group input-group-dynamic is-filled' : 
-              'input-group input-group-dynamic'">
-              <label class="form-label">Apellidos</label>
-              <input type="text" class="form-control w-100" onfocus="focused(this)" onfocusout="defocused(this)"
-                [value]="(direccionPrincipal != undefined) ? direccionPrincipal.apellidos : ''">
+          <div class="row mt-4">
+            <div class="col-sm-6">
+              <div [ngClass]="direccionPrincipal != undefined ? 
+                'input-group input-group-dynamic is-filled' : 
+                'input-group input-group-dynamic'">
+                <label for="exampleDataList" class="form-label">Tipo Dirección</label>
+                <input class="form-control" list="datalistTipoDireccion" id="tipoDireccionInput"
+                  [value]="(direccionPrincipal != undefined) ? direccionPrincipal.tipoDireccion : ''">
+                <datalist id="datalistTipoDireccion">
+                  <option value="Avenida">
+                  <option value="Urbanización">
+                </datalist>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div [ngClass]="direccionPrincipal != undefined ? 
+                'input-group input-group-dynamic is-filled' : 
+                'input-group input-group-dynamic'">
+                <label class="form-label">Dirección</label>
+                <input type="text" class="form-control w-100" onfocus="focused(this)" onfocusout="defocused(this)"
+                  [value]="(direccionPrincipal != undefined) ? direccionPrincipal.direccion : ''">
+              </div>
             </div>
           </div>
-          <div class="col-3">
-            <div [ngClass]="direccionPrincipal != undefined ? 
-              'input-group input-group-dynamic is-filled' : 
-              'input-group input-group-dynamic'">
-              <label class="form-label">Teléfono</label>
-              <input type="text" class="form-control w-100" onfocus="focused(this)" onfocusout="defocused(this)"
-                [value]="(direccionPrincipal != undefined) ? direccionPrincipal.telefono : ''">
+          <div class="row mt-4">
+            <div class="col-sm-6">
+              <div [ngClass]="direccionPrincipal != undefined ? 
+                'input-group input-group-dynamic is-filled' : 
+                'input-group input-group-dynamic'">
+                <label class="form-label">Nro/Lote</label>
+                <input type="text" class="form-control w-100" onfocus="focused(this)" onfocusout="defocused(this)"
+                  [value]="(direccionPrincipal != undefined) ? direccionPrincipal.nroLote : ''">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div [ngClass]="direccionPrincipal != undefined ? 
+                'input-group input-group-dynamic is-filled' : 
+                'input-group input-group-dynamic'">
+                <label class="form-label">Depto</label>
+                <input type="email" class="form-control w-100" onfocus="focused(this)" onfocusout="defocused(this)"
+                  [value]="(direccionPrincipal != undefined) ? direccionPrincipal.depto : ''">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row mt-5">
-          <div class="col-3">
-            <div [ngClass]="direccionPrincipal != undefined ? 
-              'input-group input-group-dynamic is-filled' : 
-              'input-group input-group-dynamic'">
-              <label for="exampleDataList" class="form-label">Departamento</label>
-              <select class="form-control">
-                <option [ngValue]="null" disabled>Seleccione un departamento</option>
-                <option *ngFor="let departamento of departamentoOptions" [value]="departamento.id">
-                  {{departamento.nombre}}
-                </option>
-              </select>
+          <div class="row mt-4">
+            <div class="col-sm-6">
+              <div [ngClass]="direccionPrincipal != undefined ? 
+                'input-group input-group-dynamic is-filled' : 
+                'input-group input-group-dynamic'">
+                <label class="form-label">Urbanización</label>
+                <input type="email" class="form-control w-100" onfocus="focused(this)" onfocusout="defocused(this)"
+                  [value]="(direccionPrincipal != undefined) ? direccionPrincipal.urbanizacion : ''">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div [ngClass]="direccionPrincipal != undefined ? 
+                'input-group input-group-dynamic is-filled' : 
+                'input-group input-group-dynamic'">
+                <label class="form-label">Referencia</label>
+                <input type="email" class="form-control w-100" onfocus="focused(this)" onfocusout="defocused(this)"
+                  [value]="(direccionPrincipal != undefined) ? direccionPrincipal.referencia : ''">
+              </div>
             </div>
           </div>
-          <div class="col-3">
-            <div [ngClass]="direccionPrincipal != undefined ? 
-              'input-group input-group-dynamic is-filled' : 
-              'input-group input-group-dynamic'">
-              <label for="exampleDataList" class="form-label">Provincia</label>
-              <input class="form-control" list="datalistProvincias" id="provinciaInput"
-                [value]="(direccionPrincipal != undefined) ? direccionPrincipal.provincia : ''">
-              <datalist id="datalistProvincias">
-                <option value="78754653">
-                <option value="78754651">
-                <option value="78754633">
-                <option value="78754633">
-                <option value="78714633">
-              </datalist>
-            </div>
-          </div>
-          <div class="col-4">
-            <div [ngClass]="direccionPrincipal != undefined ? 
-              'input-group input-group-dynamic is-filled' : 
-              'input-group input-group-dynamic'">
-              <label for="exampleDataList" class="form-label">Distrito</label>
-              <input class="form-control" list="datalistDistritos" id="distritoInput"
-                [value]="(direccionPrincipal != undefined) ? direccionPrincipal.distrito : ''">
-              <datalist id="datalistDistritos">
-                <option value="78754653">
-                <option value="78754651">
-                <option value="78754633">
-                <option value="78754633">
-                <option value="78714633">
-              </datalist>
-            </div>
-          </div>
-        </div>
-        <div class="row mt-4">
-          <div class="col-sm-6">
-            <div [ngClass]="direccionPrincipal != undefined ? 
-              'input-group input-group-dynamic is-filled' : 
-              'input-group input-group-dynamic'">
-              <label for="exampleDataList" class="form-label">Tipo Dirección</label>
-              <input class="form-control" list="datalistTipoDireccion" id="tipoDireccionInput"
-                [value]="(direccionPrincipal != undefined) ? direccionPrincipal.tipoDireccion : ''">
-              <datalist id="datalistTipoDireccion">
-                <option value="Avenida">
-                <option value="Urbanización">
-              </datalist>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div [ngClass]="direccionPrincipal != undefined ? 
-              'input-group input-group-dynamic is-filled' : 
-              'input-group input-group-dynamic'">
-              <label class="form-label">Dirección</label>
-              <input type="text" class="form-control w-100" onfocus="focused(this)" onfocusout="defocused(this)"
-                [value]="(direccionPrincipal != undefined) ? direccionPrincipal.direccion : ''">
-            </div>
-          </div>
-        </div>
-        <div class="row mt-4">
-          <div class="col-sm-6">
-            <div [ngClass]="direccionPrincipal != undefined ? 
-              'input-group input-group-dynamic is-filled' : 
-              'input-group input-group-dynamic'">
-              <label class="form-label">Nro/Lote</label>
-              <input type="text" class="form-control w-100" onfocus="focused(this)" onfocusout="defocused(this)"
-                [value]="(direccionPrincipal != undefined) ? direccionPrincipal.nroLote : ''">
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div [ngClass]="direccionPrincipal != undefined ? 
-              'input-group input-group-dynamic is-filled' : 
-              'input-group input-group-dynamic'">
-              <label class="form-label">Depto</label>
-              <input type="email" class="form-control w-100" onfocus="focused(this)" onfocusout="defocused(this)"
-                [value]="(direccionPrincipal != undefined) ? direccionPrincipal.depto : ''">
-            </div>
-          </div>
-        </div>
-        <div class="row mt-4">
-          <div class="col-sm-6">
-            <div [ngClass]="direccionPrincipal != undefined ? 
-              'input-group input-group-dynamic is-filled' : 
-              'input-group input-group-dynamic'">
-              <label class="form-label">Urbanización</label>
-              <input type="email" class="form-control w-100" onfocus="focused(this)" onfocusout="defocused(this)"
-                [value]="(direccionPrincipal != undefined) ? direccionPrincipal.urbanizacion : ''">
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div [ngClass]="direccionPrincipal != undefined ? 
-              'input-group input-group-dynamic is-filled' : 
-              'input-group input-group-dynamic'">
-              <label class="form-label">Referencia</label>
-              <input type="email" class="form-control w-100" onfocus="focused(this)" onfocusout="defocused(this)"
-                [value]="(direccionPrincipal != undefined) ? direccionPrincipal.referencia : ''">
-            </div>
-          </div>
-        </div>
+          <br>
+          <button type="submit" 
+            class="btn btn-success w-100"
+            [disabled]="true"
+          >
+            Guardar
+          </button>
+        </form>
       </div>
     </div>
   </div>

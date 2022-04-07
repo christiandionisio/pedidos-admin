@@ -58,4 +58,9 @@ export class DireccionesComponent implements OnInit {
     this.router.navigate(['..']);
   }
 
+  onSubmit() {
+    console.log('onSubmit');
+    
+  }
+
 }
