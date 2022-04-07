@@ -18,4 +18,8 @@ export class ProvinciaService {
   getProvinciaById(id: String) {
     return this.http.get(`${BASE_URL}/provincias/${id}`);
   }
+
+  getProvinciaByIdDepartamento(idDepartamento: String) {
+    return this.http.get(`${BASE_URL}/provincias/byIdDepartamento/${idDepartamento}`);
+  }
 }

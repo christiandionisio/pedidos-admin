@@ -56,8 +56,6 @@ export class DireccionesComponent implements OnInit {
   ngOnInit(): void {
     this.getDireccionesByCliente();
     this.getDepartamentosList();
-    this.getProvinciasList();
-    this.getDistritosList();
     // this.direccionForm.get('dni')?.disable();
   }
 
@@ -84,20 +82,28 @@ export class DireccionesComponent implements OnInit {
     });
   }
 
-  getProvinciasList() {
-    this.provinciaService.getProvinciaList().subscribe( (res: any) => {
+  getProvinciasByIdDepartamento(idDepartamento: string) {
+    this.provinciaService.getProvinciaByIdDepartamento(idDepartamento).subscribe( (res: any) => {
       this.provinciaOptions = res;
     });
   }
 
-  getDistritosList() {
-    this.distritoService.getDistritoList().subscribe( (res: any) => {
+  getDistritosByIdProvincia(idProvincia: string) {
+    this.distritoService.getDistritoByIdProvincia(idProvincia).subscribe( (res: any) => {
       this.distritoOptions = res;
     });
   }
 
   goToPreviousPage() {
     this.router.navigate(['..']);
+  }
+
+  onSelectDepartamento() {
+    this.getProvinciasByIdDepartamento(this.direccionForm.controls['departamento'].value);
+  }
+
+  onSelectProvincia() {
+    this.getDistritosByIdProvincia(this.direccionForm.controls['provincia'].value);
   }
 
   setInitialFormValue() {

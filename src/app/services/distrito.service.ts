@@ -18,4 +18,8 @@ export class DistritoService {
   getDistritoById(id: String) {
     return this.http.get(`${BASE_URL}/distritos/${id}`);
   }
+
+  getDistritoByIdProvincia(idProvincia: String) {
+    return this.http.get(`${BASE_URL}/distritos/byIdProvincia/${idProvincia}`);
+  }
 }

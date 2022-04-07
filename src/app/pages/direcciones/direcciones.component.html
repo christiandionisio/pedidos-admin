@@ -74,10 +74,10 @@
                 'input-group input-group-dynamic is-filled' : 
                 'input-group input-group-dynamic'">
                 <label for="exampleDataList" class="form-label">Departamento</label>
-                <select class="form-control" formControlName="departamento">
+                <select class="form-control" formControlName="departamento" (change)="onSelectDepartamento()">
                   <option [ngValue]="null" disabled>Seleccione un departamento</option>
                   <option *ngFor="let departamento of departamentoOptions" 
-                    [value]="departamento.nombre"
+                    [value]="departamento.id"
                   >
                     {{departamento.nombre}}
                   </option>
@@ -89,10 +89,10 @@
                 'input-group input-group-dynamic is-filled' : 
                 'input-group input-group-dynamic'">
                 <label for="exampleDataList" class="form-label">Provincia</label>
-                <select class="form-control" formControlName="provincia">
+                <select class="form-control" formControlName="provincia" (change)="onSelectProvincia()">
                   <option [ngValue]="null" disabled>Seleccione una provincia</option>
                   <option *ngFor="let provincia of provinciaOptions" 
-                    [value]="provincia.nombre"
+                    [value]="provincia.id"
                   >
                     {{provincia.nombre}}
                   </option>
