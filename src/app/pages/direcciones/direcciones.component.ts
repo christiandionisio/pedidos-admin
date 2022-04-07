@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from 'src/app/interfaces/clientes';
 import { Departamento } from 'src/app/interfaces/departamentos';
 import { ClientesService } from 'src/app/services/clientes.service';
@@ -19,7 +19,8 @@ export class DireccionesComponent implements OnInit {
   clienteSeleccionado!: Cliente;
   departamentoOptions: Departamento[] = [];
 
-  constructor(private route: ActivatedRoute, 
+  constructor(private route: ActivatedRoute,
+    private router: Router, 
     private direccionesService: DireccionesService,
     private clienteService: ClientesService,
     private departamentoService: DepartamentoService) { 
@@ -51,6 +52,10 @@ export class DireccionesComponent implements OnInit {
     this.departamentoService.getDepartamentoList().subscribe( (res: any) => {
       this.departamentoOptions = res;
     });
+  }
+
+  goToPreviousPage() {
+    this.router.navigate(['..']);
   }
 
 }
