@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from 'src/app/interfaces/clientes';
 import { Departamento } from 'src/app/interfaces/departamentos';
+import { Distrito } from 'src/app/interfaces/distritos';
+import { Provincia } from 'src/app/interfaces/provincias';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { DepartamentoService } from 'src/app/services/departamento.service';
 import { DireccionesService } from 'src/app/services/direcciones.service';
@@ -18,12 +21,32 @@ export class DireccionesComponent implements OnInit {
 
   clienteSeleccionado!: Cliente;
   departamentoOptions: Departamento[] = [];
+  provinciaOptions: Provincia[] = [];
+  distritoOptions: Distrito[] = [];
+
+  public direccionForm = this.fb.group({
+    dni: [''],
+    celular: [''],
+    nombres: [''],
+    apellidos: [''],
+    telefono: [''],
+    departamento: [''],
+    provincia: [''],
+    distrito: [''],
+    tipoDireccion: [''],
+    direccion: [''],
+    nroLote: [''],
+    depto: [''],
+    urbanizacion: [''],
+    referencia: [''],
+  });
 
   constructor(private route: ActivatedRoute,
     private router: Router, 
     private direccionesService: DireccionesService,
     private clienteService: ClientesService,
-    private departamentoService: DepartamentoService) { 
+    private departamentoService: DepartamentoService,
+    private fb: FormBuilder) { 
   }
 
   ngOnInit(): void {
@@ -45,6 +68,7 @@ export class DireccionesComponent implements OnInit {
   getClienteById(idCliente: string) {
     this.clienteService.getClientesById(idCliente).subscribe( (res: any) => {
       this.clienteSeleccionado = res;
+      this.direccionForm.controls['dni'].setValue(this.clienteSeleccionado.dni);
     });
   }
 
@@ -60,6 +84,8 @@ export class DireccionesComponent implements OnInit {
 
   onSubmit() {
     console.log('onSubmit');
+    console.log(this.direccionForm.value);
+    
     
   }
 
