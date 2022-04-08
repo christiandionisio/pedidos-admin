@@ -64,7 +64,7 @@ export class DireccionesComponent implements OnInit {
       .subscribe((resp) => {
         this.listaDirecciones = resp;
         this.direccionPrincipal = this.listaDirecciones[0];
-        this.setInitialFormValue();
+        this.setDireccionFormValue();
         this.getClienteById(this.direccionPrincipal.idCliente);
       });
   }
@@ -80,6 +80,14 @@ export class DireccionesComponent implements OnInit {
     this.departamentoService.getDepartamentoList().subscribe( (res: any) => {
       this.departamentoOptions = res;
     });
+  }
+
+  async getDepartmamentoById(idDepartamento: string) {
+    let resp: string = '';
+    await this.departamentoService.getDepartamentoById(idDepartamento).subscribe( (res: any) => {
+      resp = res.nombre;
+    });
+    return resp;
   }
 
   getProvinciasByIdDepartamento(idDepartamento: string) {
@@ -106,7 +114,7 @@ export class DireccionesComponent implements OnInit {
     this.getDistritosByIdProvincia(this.direccionForm.controls['provincia'].value);
   }
 
-  setInitialFormValue() {
+  setDireccionFormValue() {
     this.direccionForm.controls['celular'].setValue(this.direccionPrincipal.celular);
     this.direccionForm.controls['nombres'].setValue(this.direccionPrincipal.nombre);
     this.direccionForm.controls['apellidos'].setValue(this.direccionPrincipal.apellidos);
@@ -120,6 +128,14 @@ export class DireccionesComponent implements OnInit {
     this.direccionForm.controls['depto'].setValue(this.direccionPrincipal.depto);
     this.direccionForm.controls['urbanizacion'].setValue(this.direccionPrincipal.urbanizacion);
     this.direccionForm.controls['referencia'].setValue(this.direccionPrincipal.referencia);
+  }
+
+  showToEdit(direccion: any) {
+    this.direccionPrincipal = direccion;
+    this.setDireccionFormValue();
+    
+    this.onSelectDepartamento();
+    this.onSelectProvincia();
   }
 
   onSubmit() {

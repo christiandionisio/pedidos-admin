@@ -232,8 +232,15 @@
             </div>
             <div class="d-flex align-items-center text-sm">
               {{direccion.departamento}}&nbsp;&nbsp;&nbsp;
-              <button type="button" class="btn btn-icon btn-warning btn-tooltip btn-sm mr-5" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="Editar registro" data-container="body" data-animation="true">
+              <button type="button" 
+                class="btn btn-icon btn-warning btn-tooltip btn-sm mr-5" 
+                data-bs-toggle="tooltip"
+                data-bs-placement="top" 
+                title="Editar registro" 
+                data-container="body" 
+                data-animation="true"
+                (click)="showToEdit(direccion)"
+              >
                 <i class="material-icons md-16">edit</i>
               </button>
               <button type="button" class="btn btn-icon btn-danger btn-tooltip btn-sm mr-5" data-bs-toggle="tooltip"
