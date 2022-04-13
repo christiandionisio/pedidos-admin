@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Cliente } from 'src/app/interfaces/clientes';
 import { Departamento } from 'src/app/interfaces/departamentos';
+import { Direccion } from 'src/app/interfaces/direcciones';
 import { Distrito } from 'src/app/interfaces/distritos';
 import { Provincia } from 'src/app/interfaces/provincias';
 import { ClientesService } from 'src/app/services/clientes.service';
@@ -10,6 +11,7 @@ import { DepartamentoService } from 'src/app/services/departamento.service';
 import { DireccionesService } from 'src/app/services/direcciones.service';
 import { DistritoService } from 'src/app/services/distrito.service';
 import { ProvinciaService } from 'src/app/services/provincia.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-direcciones',
@@ -149,10 +151,46 @@ export class DireccionesComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('onSubmit');
-    console.log(this.direccionForm.value);
     
+    this.direccionesService.updateDireccion(this.getValuesFormToDirecion())
+      .subscribe({
+        next: (v) => {
+          Swal.fire(
+            'Registro Actualizado!',
+            'El registro se actualizó correctamente.',
+            'success'
+          );
+          this.getDireccionesByCliente();
+        },
+        error: (e) => console.log(e)
+        ,
+      });
     
+  }
+
+  getValuesFormToDirecion(): Direccion {
+
+    const direccion: Direccion = {
+      id: this.direccionPrincipal.id,
+      idCliente: this.direccionPrincipal.idCliente,
+      idDistrito: this.direccionForm.controls['distrito'].value,
+      celular: this.direccionForm.controls['celular'].value,
+      nombre: this.direccionForm.controls['nombres'].value,
+      apellidos: this.direccionForm.controls['apellidos'].value,
+      telefono: this.direccionForm.controls['telefono'].value,
+      departamento: this.direccionForm.controls['departamento'].value,
+      provincia: this.direccionForm.controls['provincia'].value,
+      distrito: this.direccionForm.controls['distrito'].value,
+      tipoDireccion: this.direccionForm.controls['tipoDireccion'].value,
+      direccion: this.direccionForm.controls['direccion'].value,
+      nroLote: this.direccionForm.controls['nroLote'].value,
+      depto: this.direccionForm.controls['depto'].value,
+      urbanizacion: this.direccionForm.controls['urbanizacion'].value,
+      referencia: this.direccionForm.controls['referencia'].value,
+    }
+
+    return direccion;
+
   }
 
   setNombreDepartanentoDistrito(direccion: any) {
