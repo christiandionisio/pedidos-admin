@@ -56,16 +56,25 @@ export class DireccionesComponent implements OnInit {
   ngOnInit(): void {
     this.getDireccionesByCliente();
     this.getDepartamentosList();
-    // this.direccionForm.get('dni')?.disable();
   }
 
   getDireccionesByCliente() {
     this.direccionesService.getDireccionesByIdCliente(this.route.snapshot.paramMap.get('idCliente')!)
       .subscribe((resp) => {
         this.listaDirecciones = resp;
+        
         this.direccionPrincipal = this.listaDirecciones[0];
         this.setDireccionFormValue();
         this.getClienteById(this.direccionPrincipal.idCliente);
+
+
+        this.listaDirecciones.map( (direccion: any) => {
+          this.setNombreDepartanentoDistrito(direccion);
+        });
+
+        this.onSelectDepartamento();
+        this.onSelectProvincia();
+        
       });
   }
 
@@ -136,6 +145,7 @@ export class DireccionesComponent implements OnInit {
     
     this.onSelectDepartamento();
     this.onSelectProvincia();
+    
   }
 
   onSubmit() {
@@ -143,6 +153,17 @@ export class DireccionesComponent implements OnInit {
     console.log(this.direccionForm.value);
     
     
+  }
+
+  setNombreDepartanentoDistrito(direccion: any) {
+
+    this.departamentoService.getDepartamentoById(direccion.departamento).subscribe( (res: any) => {
+      direccion.departamentoName = res.nombre;
+    });
+
+    this.distritoService.getDistritoById(direccion.distrito).subscribe( (res: any) => {
+      direccion.distritoName = res.nombre;
+    });
   }
 
 }
