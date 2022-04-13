@@ -27,9 +27,9 @@ export class DireccionesService {
   //   return this.http.post(`${BASE_URL}/clientes`, cliente, {observe: "response"});
   // }
 
-  // updateCliente(cliente: Cliente) {
-  //   return this.http.put(`${BASE_URL}/clientes`, cliente, {observe: "response"});
-  // }
+  updateDireccion(direccion: any) {
+    return this.http.put(`${BASE_URL}/direcciones`, direccion, {observe: "response"});
+  }
 
   // eliminarCliente(idCliente: String) {
   //   return this.http.delete(`${BASE_URL}/clientes/${idCliente}`, {observe: "response"});
