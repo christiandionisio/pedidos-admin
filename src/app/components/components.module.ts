@@ -5,6 +5,7 @@ import { FooterComponent } from './footer/footer.component';
 import { ModalProductoComponent } from './modal-producto/modal-producto.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModalClienteComponent } from './modal-cliente/modal-cliente.component';
+import { PedidosComponent } from './pedidos/pedidos.component';
 
 
 
@@ -13,7 +14,8 @@ import { ModalClienteComponent } from './modal-cliente/modal-cliente.component';
     NavbarComponent,
     FooterComponent,
     ModalProductoComponent,
-    ModalClienteComponent
+    ModalClienteComponent,
+    PedidosComponent
   ],
   imports: [
     CommonModule,

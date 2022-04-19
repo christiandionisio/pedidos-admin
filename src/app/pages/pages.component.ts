@@ -8,6 +8,11 @@ export class PagesComponent implements OnInit {
 
   public listDashboard = [
     {
+      name: 'Pedidos',
+      icon: 'list_alt',
+      path: 'pedidos'
+    },
+    {
       name: 'Clientes',
       icon: 'people_alt',
       path: 'clientes'

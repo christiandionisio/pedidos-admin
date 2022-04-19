@@ -4,10 +4,12 @@ import { ClientesComponent } from './clientes/clientes.component';
 import { ProductosComponent } from './productos/productos.component';
 import { TarjetasComponent } from './tarjetas/tarjetas.component';
 import { DireccionesComponent } from './direcciones/direcciones.component';
+import { PedidosComponent } from '../components/pedidos/pedidos.component';
 
 
 const routes: Routes = [
-    { path: '', component: ClientesComponent },
+    { path: '', component: PedidosComponent },
+    { path: 'pedidos', component: PedidosComponent },
     { path: 'clientes', component: ClientesComponent },
     { path: 'productos', component: ProductosComponent },
     { path: 'tarjetas', component: TarjetasComponent },
