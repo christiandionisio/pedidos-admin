@@ -58,6 +58,7 @@ export class DireccionesComponent implements OnInit {
   ngOnInit(): void {
     this.getDireccionesByCliente();
     this.getDepartamentosList();
+    this.direccionForm.controls['dni'].disable();
   }
 
   getDireccionesByCliente() {
