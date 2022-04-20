@@ -4,7 +4,7 @@ import { ClientesComponent } from './clientes/clientes.component';
 import { ProductosComponent } from './productos/productos.component';
 import { TarjetasComponent } from './tarjetas/tarjetas.component';
 import { DireccionesComponent } from './direcciones/direcciones.component';
-import { PedidosComponent } from '../components/pedidos/pedidos.component';
+import { PedidosComponent } from './pedidos/pedidos.component';
 
 
 const routes: Routes = [

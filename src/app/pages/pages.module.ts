@@ -14,6 +14,7 @@ import { ProductosComponent } from './productos/productos.component';
 import { ModalProductoComponent } from '../components/modal-producto/modal-producto.component';
 import { TarjetasComponent } from './tarjetas/tarjetas.component';
 import { DireccionesComponent } from './direcciones/direcciones.component';
+import { PedidosComponent } from './pedidos/pedidos.component';
 
 
 
@@ -25,7 +26,8 @@ import { DireccionesComponent } from './direcciones/direcciones.component';
     RegisterComponent,
     ProductosComponent,
     TarjetasComponent,
-    DireccionesComponent
+    DireccionesComponent,
+    PedidosComponent
   ],
   imports: [
     CommonModule,
