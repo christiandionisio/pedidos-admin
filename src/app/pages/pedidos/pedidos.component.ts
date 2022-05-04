@@ -1,11 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalClienteComponent } from 'src/app/components/modal-cliente/modal-cliente.component';
-import { Cliente } from 'src/app/interfaces/clientes';
-import { ClientesService } from 'src/app/services/clientes.service';
-import Swal from 'sweetalert2';
+import { PedidosService } from 'src/app/services/pedidos.service';
 
 @Component({
   selector: 'app-pedidos',
@@ -15,11 +9,14 @@ import Swal from 'sweetalert2';
 export class PedidosComponent implements OnInit {
 
 
-  constructor() { 
+  constructor(private pedidosService: PedidosService) {
+
   }
 
   ngOnInit(): void {
-     
+     this.pedidosService.getPedidos().subscribe(data => {
+      console.log(data);
+     });
   }
 
   
