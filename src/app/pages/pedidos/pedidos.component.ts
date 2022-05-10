@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FacturaInfo } from 'src/app/interfaces/factura-info';
 import { Factura } from 'src/app/interfaces/facturas';
-import { Pedido } from 'src/app/interfaces/pedidos';
+import { ClientesService } from 'src/app/services/clientes.service';
 import { FacturasService } from 'src/app/services/facturas.service';
 import { PedidosService } from 'src/app/services/pedidos.service';
 
@@ -11,10 +12,11 @@ import { PedidosService } from 'src/app/services/pedidos.service';
 })
 export class PedidosComponent implements OnInit {
 
-  public facturas: Factura[] = [];
+  public facturas: FacturaInfo[] = [];
 
   constructor(private pedidosService: PedidosService,
-      private facturasService:FacturasService) {
+      private facturasService:FacturasService,
+      private clienteService: ClientesService) {
 
   }
 
@@ -24,6 +26,8 @@ export class PedidosComponent implements OnInit {
 
   recibirFacturas = () => {
     this.pedidosService.listenPedidos().subscribe(data => {
+      console.log(data);
+      
       if (data !== '') {
         this.getFacturaById(data);        
       }
@@ -32,7 +36,19 @@ export class PedidosComponent implements OnInit {
 
   getFacturaById = (idFactura: string) => {
     this.facturasService.getFacturaById(idFactura).subscribe((data: any) => {
-      this.facturas.push(data);
+      this.getClienteById(data);
+    });
+  }
+
+  getClienteById = (facturaData: Factura) => {
+    this.clienteService.getClientesById(facturaData.idCliente).subscribe((data: any) => {
+      let facturaInfo: FacturaInfo = {
+        facturaData,
+        clienteData: data
+      };
+      console.log(facturaInfo);
+      this.facturas.push(facturaInfo);
+      
     });
   }
 
