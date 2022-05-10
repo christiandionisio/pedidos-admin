@@ -279,9 +279,9 @@
                                     </div>
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                    <p class="text-xs font-weight-bold mb-0">18:05</p>
+                                    <p class="text-xs font-weight-bold mb-0"> {{getHours(factura.facturaData.fechaEmision)}}:{{getMinutes(factura.facturaData.fechaEmision)}}</p>
                                     <p class="text-xs text-secondary mb-0">
-                                        <span class="badge bg-gradient-warning">waiting</span>
+                                        <span class="badge bg-gradient-warning"> {{factura.facturaData.estado}} </span>
                                     </p>
                                 </td>
                                 <td class="align-middle">

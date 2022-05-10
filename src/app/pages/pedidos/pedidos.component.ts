@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { FacturaInfo } from 'src/app/interfaces/factura-info';
 import { Factura } from 'src/app/interfaces/facturas';
 import { ClientesService } from 'src/app/services/clientes.service';
@@ -46,10 +47,19 @@ export class PedidosComponent implements OnInit {
         facturaData,
         clienteData: data
       };
-      console.log(facturaInfo);
       this.facturas.push(facturaInfo);
       
     });
+  }
+
+  getHours = (fecha: string) => {
+    let myMoment = moment(fecha);
+    return myMoment.hours();
+  }
+
+  getMinutes = (fecha: string) => {
+    let myMoment = moment(fecha);
+    return myMoment.minutes();
   }
 
   
