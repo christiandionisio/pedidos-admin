@@ -15,8 +15,8 @@ export class FacturasService {
     return this.http.get(`${BASE_URL}/facturas/${idFactura}`);
   }
 
-  public getFacturaByFilters = (estado: string) => {
-    return this.http.get(`${BASE_URL}/facturas/filters?estado=${estado}`);
+  public getFacturaByFilters = (estado: string, fecha: string) => {
+    return this.http.get(`${BASE_URL}/facturas/filters?estado=${estado}&fecha=${fecha}`);
   }
 
 }
