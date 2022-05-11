@@ -13,7 +13,7 @@ import { PedidosService } from 'src/app/services/pedidos.service';
 })
 export class PedidosComponent implements OnInit {
 
-  public facturas: FacturaInfo[] = [];
+  public facturasEnEspera: FacturaInfo[] = [];
 
   constructor(private pedidosService: PedidosService,
       private facturasService:FacturasService,
@@ -23,6 +23,7 @@ export class PedidosComponent implements OnInit {
 
   ngOnInit(): void {
      this.recibirFacturas();
+     // TODO: Consultar facturas en estado espera
   }
 
   recibirFacturas = () => {
@@ -47,7 +48,7 @@ export class PedidosComponent implements OnInit {
         facturaData,
         clienteData: data
       };
-      this.facturas.push(facturaInfo);
+      this.facturasEnEspera.push(facturaInfo);
       
     });
   }
@@ -60,6 +61,13 @@ export class PedidosComponent implements OnInit {
   getMinutes = (fecha: string) => {
     let myMoment = moment(fecha);
     return myMoment.minutes();
+  }
+
+  cambiarEstado = (idFactura: string) => {
+    
+    // TODO: Cambiar de estado socket y notiificar al cliente
+    console.log(idFactura);
+    
   }
 
   

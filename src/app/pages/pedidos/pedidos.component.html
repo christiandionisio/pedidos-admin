@@ -266,7 +266,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let factura of facturas">
+                            <tr *ngFor="let factura of facturasEnEspera">
                                 <td>
                                     <div class="d-flex px-2 py-1">
                                     <div>
@@ -287,7 +287,8 @@
                                 <td class="align-middle">
                                     <button type="button" class="btn btn-icon btn-danger btn-tooltip btn-sm mr-5"
                                         data-bs-toggle="tooltip" data-bs-placement="top" title="Atender Pedido"
-                                        data-container="body" data-animation="true">
+                                        data-container="body" data-animation="true"
+                                        (click)="cambiarEstado(factura.facturaData.id)">
                                         <i class="material-icons md-16">keyboard_double_arrow_left</i>
                                     </button>
                                 </td>
