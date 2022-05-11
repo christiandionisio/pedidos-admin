@@ -24,6 +24,7 @@ export class PedidosComponent implements OnInit {
   ngOnInit(): void {
      this.recibirFacturas();
      // TODO: Consultar facturas en estado espera
+     this.getFacturasEnEspera();
   }
 
   recibirFacturas = () => {
@@ -68,6 +69,12 @@ export class PedidosComponent implements OnInit {
     // TODO: Cambiar de estado socket y notiificar al cliente
     console.log(idFactura);
     
+  }
+
+  getFacturasEnEspera = () => {
+    this.facturasService.getFacturaByFilters('PENDIENTE').subscribe((data: any) => {
+      console.log(data);
+    });
   }
 
   
