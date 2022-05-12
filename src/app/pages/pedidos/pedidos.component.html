@@ -257,7 +257,7 @@
             </div>
             <div class="card">
                 <div class="table-responsive">
-                    <table class="table align-items-center mb-0">
+                    <table class="table align-items-center mb-0" *ngIf="facturasEnEspera.length > 0">
                         <thead>
                             <tr>
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cliente</th>
@@ -265,7 +265,7 @@
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody>     
                             <tr *ngFor="let factura of facturasEnEspera">
                                 <td>
                                     <div class="d-flex px-2 py-1">
@@ -292,10 +292,13 @@
                                         <i class="material-icons md-16">keyboard_double_arrow_left</i>
                                     </button>
                                 </td>
-                            </tr>
-                            
+                            </tr>                        
                         </tbody>
                     </table>
+                    <div class="text-center mb-4" *ngIf="facturasEnEspera.length === 0">
+                        <h6 class="text-secondary text-xs font-weight-bold mb-0">No hay pedidos en espera</h6>
+                    </div>
+                    
                 </div>
                 </div>
         </div>
