@@ -44,8 +44,6 @@ export class PedidosComponent implements OnInit {
 
   getClienteById = (facturaData: Factura) => {
     this.clienteService.getClientesById(facturaData.idCliente).subscribe((data: any) => {
-      console.log(data);
-      
       let facturaInfo: FacturaInfo = {
         facturaData,
         clienteData: data
@@ -76,7 +74,7 @@ export class PedidosComponent implements OnInit {
     
     this.facturasService.getFacturaByFilters('ESPERA', moment().format('YYYY-MM-DD')).subscribe((data: any) => {
       if (data.length > 0) {
-        data.map((factura: Factura) => this.getFacturaById(factura.id));
+        data.map((factura: Factura) => this.getClienteById(factura));
       }
     });
   }

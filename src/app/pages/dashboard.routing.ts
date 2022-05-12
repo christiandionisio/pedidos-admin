@@ -8,7 +8,7 @@ import { PedidosComponent } from './pedidos/pedidos.component';
 
 
 const routes: Routes = [
-    { path: '', component: PedidosComponent },
+    { path: '', redirectTo: 'pedidos', pathMatch: 'full'},
     { path: 'pedidos', component: PedidosComponent },
     { path: 'clientes', component: ClientesComponent },
     { path: 'productos', component: ProductosComponent },
