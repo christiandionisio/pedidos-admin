@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { io } from "socket.io-client";
 import { environment } from 'src/environments/environment';
+import { Factura } from '../interfaces/facturas';
 
 const BASE_URL = environment.base_url;
 
@@ -26,5 +27,12 @@ export class PedidosService {
 
   public getPedidosPorFactura = (idFactura: string) => {
     return this.http.get(`${BASE_URL}/pedidos/${idFactura}`);
+  }
+
+  public cambiarEstadoPedido = (factura: Factura) => {
+    this.socket.emit('atender-pedido', {
+      token: localStorage.getItem('token'),
+      factura
+    });
   }
 }

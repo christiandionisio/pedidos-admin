@@ -63,11 +63,9 @@ export class PedidosComponent implements OnInit {
     return myMoment.minutes();
   }
 
-  cambiarEstado = (idFactura: string) => {
-    
-    // TODO: Cambiar de estado socket y notiificar al cliente
-    console.log(idFactura);
-    
+  cambiarEstado = (factura: Factura) => {
+    factura.estado = 'GAAAAAA';
+    this.pedidosService.cambiarEstadoPedido(factura);
   }
 
   getFacturasEnEspera = () => {
