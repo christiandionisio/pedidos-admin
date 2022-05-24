@@ -14,6 +14,7 @@ import { PedidosService } from 'src/app/services/pedidos.service';
 export class PedidosComponent implements OnInit {
 
   public facturasEnEspera: FacturaInfo[] = [];
+  public facturasEnProgreso: FacturaInfo[] = [];
 
   constructor(private pedidosService: PedidosService,
       private facturasService:FacturasService,
@@ -24,6 +25,7 @@ export class PedidosComponent implements OnInit {
   ngOnInit(): void {
     this.getFacturasEnEspera();
     this.recibirFacturas();
+    this.getFacturasEnProgreso();
   }
 
   recibirFacturas = () => {
@@ -64,7 +66,7 @@ export class PedidosComponent implements OnInit {
   }
 
   cambiarEstado = (factura: Factura) => {
-    factura.estado = 'GAAAAAA';
+    factura.estado = 'EN PROGRESO';
     this.pedidosService.cambiarEstadoPedido(factura);
   }
 
@@ -74,6 +76,13 @@ export class PedidosComponent implements OnInit {
       if (data.length > 0) {
         data.map((factura: Factura) => this.getClienteById(factura));
       }
+    });
+  }
+
+  getFacturasEnProgreso = () => {
+    
+    this.facturasService.getFacturaByFilters('EN PROGRESO', '').subscribe((data: any) => {
+      console.log(data);
     });
   }
 
