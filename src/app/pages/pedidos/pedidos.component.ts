@@ -5,6 +5,7 @@ import { Factura } from 'src/app/interfaces/facturas';
 import { ClientesService } from 'src/app/services/clientes.service';
 import { FacturasService } from 'src/app/services/facturas.service';
 import { PedidosService } from 'src/app/services/pedidos.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-pedidos',
@@ -30,8 +31,6 @@ export class PedidosComponent implements OnInit {
 
   recibirFacturas = () => {
     this.pedidosService.listenPedidos().subscribe(data => {
-      console.log(data);
-      
       if (data !== '') {
         this.getFacturaById(data);        
       }
@@ -40,17 +39,27 @@ export class PedidosComponent implements OnInit {
 
   getFacturaById = (idFactura: string) => {
     this.facturasService.getFacturaById(idFactura).subscribe((data: any) => {
-      this.getClienteById(data);
+      this.getClienteById(data, 'ESPERA');
     });
   }
 
-  getClienteById = (facturaData: Factura) => {
+  getClienteById = (facturaData: Factura, estadoFactura: string) => {
     this.clienteService.getClientesById(facturaData.idCliente).subscribe((data: any) => {
       let facturaInfo: FacturaInfo = {
         facturaData,
         clienteData: data
       };
-      this.facturasEnEspera.push(facturaInfo);
+
+      switch (estadoFactura) {
+        case 'ESPERA':
+          this.facturasEnEspera.push(facturaInfo);
+          break;
+        case 'EN PROGRESO':
+          this.facturasEnProgreso.push(facturaInfo);
+          break;
+        default:
+          break;
+      }
       
     });
   }
@@ -67,22 +76,29 @@ export class PedidosComponent implements OnInit {
 
   cambiarEstado = (factura: Factura) => {
     factura.estado = 'EN PROGRESO';
-    this.pedidosService.cambiarEstadoPedido(factura);
+    this.pedidosService.cambiarEstadoPedido(factura).subscribe((data: any) => {
+      if (data ==='OK') {
+        this.facturasEnEspera = this.facturasEnEspera.filter(item => item.facturaData.id != factura.id);
+      } else {
+        Swal.fire('Error', 'Hubo un error interno al cambiar de estado', 'error');
+      }
+    });
   }
 
   getFacturasEnEspera = () => {
     
     this.facturasService.getFacturaByFilters('ESPERA', moment().format('YYYY-MM-DD')).subscribe((data: any) => {
       if (data.length > 0) {
-        data.map((factura: Factura) => this.getClienteById(factura));
+        data.map((factura: Factura) => this.getClienteById(factura, 'ESPERA'));
       }
     });
   }
 
-  getFacturasEnProgreso = () => {
-    
+  getFacturasEnProgreso = () => { 
     this.facturasService.getFacturaByFilters('EN PROGRESO', '').subscribe((data: any) => {
-      console.log(data);
+      if (data.length > 0) {
+        data.map((factura: Factura) => this.getClienteById(factura, 'EN PROGRESO'));
+      }
     });
   }
 

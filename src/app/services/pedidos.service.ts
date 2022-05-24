@@ -14,6 +14,7 @@ export class PedidosService {
 
   socket = io("http://localhost:3001");
   public facturaId$: BehaviorSubject<string> = new BehaviorSubject('');
+  public estadoCambioPedido$: BehaviorSubject<string> = new BehaviorSubject('');
 
   constructor(private http: HttpClient) { }
 
@@ -30,9 +31,14 @@ export class PedidosService {
   }
 
   public cambiarEstadoPedido = (factura: Factura) => {
-    this.socket.emit('atender-pedido', {
+    const payload = {
       token: localStorage.getItem('token'),
       factura
+    }
+    this.socket.emit('atender-pedido', payload, (data: any) => {
+      this.estadoCambioPedido$.next(data);
     });
+    
+    return this.estadoCambioPedido$.asObservable();
   }
 }
