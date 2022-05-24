@@ -10,7 +10,7 @@
             </div>
             <div class="card">
             <div class="table-responsive">
-                <table class="table align-items-center mb-0">
+                <table class="table align-items-center mb-0" *ngIf="isFacturasEnProresoLoaded">
                     <thead>
                         <tr>
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cliente</th>
@@ -20,7 +20,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let factura of facturasEnProgreso"> 
+                        <tr *ngFor="let factura of facturasEnProgreso" class="animate__animated animate__slideInRight"> 
                             <td>
                                 <div class="d-flex px-2 py-1">
                                 <div>

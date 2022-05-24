@@ -16,6 +16,7 @@ export class PedidosComponent implements OnInit {
 
   public facturasEnEspera: FacturaInfo[] = [];
   public facturasEnProgreso: FacturaInfo[] = [];
+  public isFacturasEnProresoLoaded = false;
 
   constructor(private pedidosService: PedidosService,
       private facturasService:FacturasService,
@@ -95,9 +96,10 @@ export class PedidosComponent implements OnInit {
   }
 
   getFacturasEnProgreso = () => { 
-    this.facturasService.getFacturaByFilters('EN PROGRESO', '').subscribe((data: any) => {
+    this.facturasService.getFacturaByFilters('EN PROGRESO', '').subscribe( (data: any) => {
       if (data.length > 0) {
         data.map((factura: Factura) => this.getClienteById(factura, 'EN PROGRESO'));
+        this.isFacturasEnProresoLoaded = true;
       }
     });
   }
