@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
+import { ModalPedidoComponent } from 'src/app/components/modal-pedido/modal-pedido.component';
 import { FacturaInfo } from 'src/app/interfaces/factura-info';
 import { Factura } from 'src/app/interfaces/facturas';
 import { ClientesService } from 'src/app/services/clientes.service';
@@ -16,11 +18,12 @@ export class PedidosComponent implements OnInit {
 
   public facturasEnEspera: FacturaInfo[] = [];
   public facturasEnProgreso: FacturaInfo[] = [];
-  public isFacturasEnProresoLoaded = false;
+  public isFacturasEnProgresoLoaded = false;
 
   constructor(private pedidosService: PedidosService,
       private facturasService:FacturasService,
-      private clienteService: ClientesService) {
+      private clienteService: ClientesService,
+      public modalService: NgbModal) {
 
   }
 
@@ -45,7 +48,9 @@ export class PedidosComponent implements OnInit {
   }
 
   getClienteById = (facturaData: Factura, estadoFactura: string) => {
-    this.clienteService.getClientesById(facturaData.idCliente).subscribe((data: any) => {
+    this.clienteService.getClientesById(facturaData.idCliente).subscribe( (data: any) => {
+      console.log("A");
+      
       let facturaInfo: FacturaInfo = {
         facturaData,
         clienteData: data
@@ -96,12 +101,19 @@ export class PedidosComponent implements OnInit {
   }
 
   getFacturasEnProgreso = () => { 
-    this.facturasService.getFacturaByFilters('EN PROGRESO', '').subscribe( (data: any) => {
+    this.facturasService.getFacturaByFilters('EN PROGRESO', '').subscribe( async (data: any) => {
       if (data.length > 0) {
-        data.map((factura: Factura) => this.getClienteById(factura, 'EN PROGRESO'));
-        this.isFacturasEnProresoLoaded = true;
+        Promise.all(data.map(async (factura: Factura) => {
+          await this.getClienteById(factura, 'EN PROGRESO')
+        }));
+        
+        this.isFacturasEnProgresoLoaded = true;
       }
     });
+  }
+
+  abrirModal = (facturaId: string) => {
+    const modalRef = this.modalService.open(ModalPedidoComponent, { size: 'lg' });
   }
 
   
