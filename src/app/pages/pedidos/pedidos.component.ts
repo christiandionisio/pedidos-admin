@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
-import { ModalPedidoComponent } from 'src/app/components/modal-pedido/modal-pedido.component';
 import { FacturaInfo } from 'src/app/interfaces/factura-info';
 import { Factura } from 'src/app/interfaces/facturas';
 import { ClientesService } from 'src/app/services/clientes.service';
@@ -113,7 +112,7 @@ export class PedidosComponent implements OnInit {
   }
 
   abrirModal = (facturaId: string) => {
-    const modalRef = this.modalService.open(ModalPedidoComponent, { size: 'lg' });
+    console.log(facturaId);
   }
 
   

@@ -9,3 +9,8 @@
 .transparent {
     background-color: transparent;
 }
+
+.collapse-container {
+    width: 300px;
+    height: 200px;
+}
