@@ -3,5 +3,6 @@ import { Factura } from "./facturas";
 
 export interface FacturaInfo {
     facturaData: Factura;
-    clienteData: Cliente
+    clienteData: Cliente;
+    ariaExpanded?: boolean;
 }

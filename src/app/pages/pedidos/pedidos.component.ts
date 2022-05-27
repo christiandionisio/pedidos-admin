@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
 import { FacturaInfo } from 'src/app/interfaces/factura-info';
 import { Factura } from 'src/app/interfaces/facturas';
@@ -21,8 +20,7 @@ export class PedidosComponent implements OnInit {
 
   constructor(private pedidosService: PedidosService,
       private facturasService:FacturasService,
-      private clienteService: ClientesService,
-      public modalService: NgbModal) {
+      private clienteService: ClientesService) {
 
   }
 
@@ -48,11 +46,11 @@ export class PedidosComponent implements OnInit {
 
   getClienteById = (facturaData: Factura, estadoFactura: string) => {
     this.clienteService.getClientesById(facturaData.idCliente).subscribe( (data: any) => {
-      console.log("A");
       
       let facturaInfo: FacturaInfo = {
         facturaData,
-        clienteData: data
+        clienteData: data,
+        ariaExpanded: false
       };
 
       switch (estadoFactura) {
@@ -111,8 +109,8 @@ export class PedidosComponent implements OnInit {
     });
   }
 
-  abrirModal = (facturaId: string) => {
-    console.log(facturaId);
+  abrirCerrarCollapse = (i: number) => {
+    this.facturasEnProgreso[i].ariaExpanded = !this.facturasEnProgreso[i].ariaExpanded;
   }
 
   
