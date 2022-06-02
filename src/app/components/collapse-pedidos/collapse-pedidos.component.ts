@@ -14,6 +14,7 @@ export class CollapsePedidosComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.idFactura);
+    console.log(this.ariaExpanded);
     
   }
 

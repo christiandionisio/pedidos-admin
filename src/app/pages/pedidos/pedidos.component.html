@@ -58,7 +58,12 @@
                             <tr>
                                 <td colspan="4">
                                     <div class="collapse" [attr.id]="'collapseExample' + i">
-                                        <app-collapse-pedidos [idFactura]="factura.facturaData.id"></app-collapse-pedidos>
+                                        <app-collapse-pedidos 
+                                            *ngIf="factura.ariaExpanded"
+                                            [idFactura]="factura.facturaData.id" 
+                                            [ariaExpanded]="factura.ariaExpanded!"
+                                            >
+                                        </app-collapse-pedidos>
                                     </div>
                                 </td>
                             </tr>
