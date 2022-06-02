@@ -27,7 +27,7 @@ export class PedidosService {
   }
 
   public getPedidosPorFactura = (idFactura: string) => {
-    return this.http.get(`${BASE_URL}/pedidos/${idFactura}`);
+    return this.http.get(`${BASE_URL}/pedidos/getByIdFactura/${idFactura}`);
   }
 
   public cambiarEstadoPedido = (factura: Factura) => {
