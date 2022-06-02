@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Pedido } from 'src/app/interfaces/pedidos';
 import { PedidosService } from 'src/app/services/pedidos.service';
 
 @Component({
@@ -10,15 +11,22 @@ export class CollapsePedidosComponent implements OnInit {
 
   @Input('idFactura') idFactura!: string;
   @Input('ariaExpanded') ariaExpanded!: boolean;
+  public pedidos: Pedido[] = [];
 
   constructor(private pedidosService: PedidosService) { }
 
   ngOnInit(): void {
     
-    this.pedidosService.getPedidosPorFactura(this.idFactura).subscribe((data: any) => {
-      console.log(data);
-    });
+    this.getPedidos();
     
+  }
+
+  getPedidos = () => {
+    this.pedidosService.getPedidosPorFactura(this.idFactura).subscribe(
+      (pedidos: any) => {
+        this.pedidos = pedidos;
+      }
+    )
   }
 
 }

@@ -1,8 +1,42 @@
 <div class="card card-body">
-    <ul>
-        <li>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus</li>
-        <li>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus</li>
-        <li>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus</li>
-        <li>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus</li>
-    </ul>
+    <div class="card h-60">
+        <div class="card-header pb-0">
+            <h6>Pedidos</h6>
+        </div>
+        <div class="card">
+            <div class="table-responsive">
+                <table class="table align-items-center mb-0">
+                    <thead>
+                        <tr>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Producto</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Unidades</th>
+                        <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total S/.</th>
+                        </tr>
+                    </thead>
+                    <tbody>     
+                        <tr *ngFor="let pedido of pedidos">
+                            <td>
+                                <div class="d-flex px-2 py-1">
+                                <div class="d-flex flex-column justify-content-center">
+                                    <h6 class="mb-0 text-xs"> {{pedido.idProducto}} </h6>
+                                </div>
+                                </div>
+                            </td>
+                            <td class="align-middle text-center text-sm">
+                                <p class="text-m text-secondary mb-0">
+                                    <span class="badge bg-gradient-success"> {{pedido.cantidad}} </span>
+                                </p>
+                            </td>
+                            <td class="align-middle">
+                                <p class="text-m text-secondary mb-0">
+                                    14.80
+                                </p>
+                            </td>
+                        </tr>                        
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+    </div>
 </div>
