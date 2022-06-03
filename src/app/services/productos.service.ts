@@ -16,6 +16,10 @@ export class ProductosService {
     return this.http.get(`${BASE_URL}/productos/pageable?page=${page}&size=${size}`);
   }
 
+  getProductoById(idProducto: String) {
+    return this.http.get(`${BASE_URL}/productos/${idProducto}`);
+  }
+
   getProductosPageableByFilters(page: number, size: number, nombre: String, tipo: String) {
     return this.http.get(`${BASE_URL}/productos/pageable/search-by-filters?page=${page}&size=${size}&nombre=${nombre}&tipo=${tipo}`);
   }
