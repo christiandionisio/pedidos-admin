@@ -18,7 +18,7 @@
                             <td>
                                 <div class="d-flex px-2 py-1">
                                 <div class="d-flex flex-column justify-content-center">
-                                    <h6 class="mb-0 text-xs"> {{pedido.idProducto}} </h6>
+                                    <h6 class="mb-0 text-xs"> {{pedido.producto?.nombre}} </h6>
                                 </div>
                                 </div>
                             </td>
@@ -29,7 +29,7 @@
                             </td>
                             <td class="align-middle">
                                 <p class="text-m text-secondary mb-0 text-center">
-                                    14.80
+                                    S/.{{pedido.cantidad * pedido.producto!.precio}}
                                 </p>
                             </td>
                         </tr>                        

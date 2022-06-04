@@ -20,10 +20,6 @@ export class CollapsePedidosComponent implements OnInit {
   ngOnInit(): void {
     
     this.getPedidos();
-
-    this.productoService.getProductoById('61874ca4e62d9f50d192b3fc').subscribe( (producto: any) => {
-      console.log(producto);
-    });
     
   }
 
@@ -31,8 +27,17 @@ export class CollapsePedidosComponent implements OnInit {
     this.pedidosService.getPedidosPorFactura(this.idFactura).subscribe(
       (pedidos: any) => {
         this.pedidos = pedidos;
+        this.pedidos.map(pedido => {
+          this.getProductoById(pedido);
+        });
       }
     )
+  }
+
+  getProductoById = (pedido: Pedido) => {
+    this.productoService.getProductoById(pedido.idProducto).subscribe( (producto: any) => {
+      pedido.producto = producto;
+    });
   }
 
 }
