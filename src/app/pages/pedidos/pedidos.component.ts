@@ -28,6 +28,7 @@ export class PedidosComponent implements OnInit {
     this.getFacturasEnEspera();
     this.recibirFacturas();
     this.getFacturasEnProgreso();
+    // TODO: consumir servicio para obtener facturas en progreso
   }
 
   recibirFacturas = () => {
@@ -80,9 +81,15 @@ export class PedidosComponent implements OnInit {
   cambiarEstado = (factura: Factura) => {
     factura.estado = 'EN PROGRESO';
     this.pedidosService.cambiarEstadoPedido(factura).subscribe((data: any) => {
+      console.log(data);
+      
       if (data ==='OK') {
         this.facturasEnEspera = this.facturasEnEspera.filter(item => item.facturaData.id != factura.id);
-      } else {
+        console.log(this.facturasEnEspera);
+        
+      }
+
+      if (data === 'ERROR') {
         Swal.fire('Error', 'Hubo un error interno al cambiar de estado', 'error');
       }
     });
@@ -98,7 +105,7 @@ export class PedidosComponent implements OnInit {
   }
 
   getFacturasEnProgreso = () => { 
-    this.facturasService.getFacturaByFilters('EN PROGRESO', '').subscribe( async (data: any) => {
+    this.facturasService.getFacturaByFilters('EN PROGRESO', moment().format('YYYY-MM-DD')).subscribe( async (data: any) => {
       if (data.length > 0) {
         Promise.all(data.map(async (factura: Factura) => {
           await this.getClienteById(factura, 'EN PROGRESO')
