@@ -10,7 +10,7 @@
             </div>
             <div class="card">
             <div class="table-responsive">
-                <table class="table align-items-center mb-0" *ngIf="isFacturasEnProgresoLoaded">
+                <table class="table align-items-center mb-0" *ngIf="facturasEnProgreso.length > 0">
                     <thead>
                         <tr>
                             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cliente</th>
@@ -71,6 +71,9 @@
                         
                     </tbody>
                 </table>
+                <div class="text-center mb-4" *ngIf="facturasEnProgreso.length === 0">
+                    <h6 class="text-secondary text-xs font-weight-bold mb-0">No hay pedidos en espera</h6>
+                </div>
             </div>
             </div>
         </div>
