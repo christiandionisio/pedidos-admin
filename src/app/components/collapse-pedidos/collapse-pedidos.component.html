@@ -27,9 +27,9 @@
                                     <span class="badge bg-gradient-success"> {{pedido.cantidad}} </span>
                                 </p>
                             </td>
-                            <td class="align-middle">
+                            <td class="align-middle" *ngIf="pedido.producto">
                                 <p class="text-m text-secondary mb-0 text-center">
-                                    S/.{{pedido.cantidad * pedido.producto!.precio}}
+                                    S/.{{pedido.cantidad * pedido.producto.precio}}
                                 </p>
                             </td>
                         </tr>                        
