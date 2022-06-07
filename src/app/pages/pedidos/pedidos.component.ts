@@ -28,7 +28,6 @@ export class PedidosComponent implements OnInit {
     this.getFacturasEnEspera();
     this.recibirFacturas();
     this.getFacturasEnProgreso();
-    // TODO: consumir servicio para obtener facturas en progreso
   }
 
   recibirFacturas = () => {
@@ -81,12 +80,13 @@ export class PedidosComponent implements OnInit {
   cambiarEstado = (factura: Factura) => {
     factura.estado = 'EN PROGRESO';
     this.pedidosService.cambiarEstadoPedido(factura).subscribe((data: any) => {
-      console.log(data);
       
       if (data ==='OK') {
-        this.facturasEnEspera = this.facturasEnEspera.filter(item => item.facturaData.id != factura.id);
-        console.log(this.facturasEnEspera);
-        
+        this.facturasEnEspera = this.facturasEnEspera.filter(item => {
+          this.getClienteById(item.facturaData, factura.estado);
+          return item.facturaData.id !== factura.id;
+        });
+
       }
 
       if (data === 'ERROR') {
