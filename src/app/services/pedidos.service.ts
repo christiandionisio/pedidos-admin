@@ -29,16 +29,4 @@ export class PedidosService {
   public getPedidosPorFactura = (idFactura: string) => {
     return this.http.get(`${BASE_URL}/pedidos/getByIdFactura/${idFactura}`);
   }
-
-  public cambiarEstadoPedido = (factura: Factura) => {
-    const payload = {
-      token: localStorage.getItem('token'),
-      factura
-    }
-    this.socket.emit('atender-pedido', payload, (data: any) => {
-      this.estadoCambioPedido$.next(data);
-    });
-    
-    return this.estadoCambioPedido$.asObservable();
-  }
 }
