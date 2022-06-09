@@ -134,10 +134,16 @@ export class PedidosComponent implements OnInit {
       factura
     }
 
-    console.log(payload);
-    
+    this.socket.emit('confirmar-pedido-listo', payload, (data: any) => {
+      if (data ==='OK') {
+        Swal.fire('Exito', 'Pedido confirmado', 'success');
+        this.facturasEnProgreso = this.facturasEnProgreso.filter(item => item.facturaData.id != factura.id);
+      }
 
-    // TODO: this.socket.emit('confirmar-pedido', payload)
+      if (data === 'ERROR') {
+        Swal.fire('Error', 'Hubo un error interno al cambiar de estado', 'error');
+      }
+    });
   }
 
   
