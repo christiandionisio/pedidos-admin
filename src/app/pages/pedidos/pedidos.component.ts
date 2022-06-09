@@ -6,6 +6,7 @@ import { ClientesService } from 'src/app/services/clientes.service';
 import { FacturasService } from 'src/app/services/facturas.service';
 import { PedidosService } from 'src/app/services/pedidos.service';
 import Swal from 'sweetalert2';
+import { io } from "socket.io-client";
 
 @Component({
   selector: 'app-pedidos',
@@ -17,6 +18,9 @@ export class PedidosComponent implements OnInit {
   public facturasEnEspera: FacturaInfo[] = [];
   public facturasEnProgreso: FacturaInfo[] = [];
   public isFacturasEnProgresoLoaded = false;
+  subscriptionCambioEstado: any = null;
+
+  socket = io("http://localhost:3001");
 
   constructor(private pedidosService: PedidosService,
       private facturasService:FacturasService,
@@ -79,14 +83,16 @@ export class PedidosComponent implements OnInit {
 
   cambiarEstado = (factura: Factura) => {
     factura.estado = 'EN PROGRESO';
-    this.pedidosService.cambiarEstadoPedido(factura).subscribe((data: any) => {
-      
-      if (data ==='OK') {
-        this.facturasEnEspera = this.facturasEnEspera.filter(item => {
-          this.getClienteById(item.facturaData, factura.estado);
-          return item.facturaData.id !== factura.id;
-        });
 
+    const payload = {
+      token: localStorage.getItem('token'),
+      factura
+    }
+    
+    this.socket.emit('atender-pedido', payload, (data: any) => {
+      if (data ==='OK') {
+        this.facturasEnEspera = this.facturasEnEspera.filter(item => item.facturaData.id != factura.id);
+        this.getClienteById(factura, factura.estado);
       }
 
       if (data === 'ERROR') {
