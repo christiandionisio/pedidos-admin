@@ -88,7 +88,7 @@ export class PedidosComponent implements OnInit {
       token: localStorage.getItem('token'),
       factura
     }
-    
+
     this.socket.emit('atender-pedido', payload, (data: any) => {
       if (data ==='OK') {
         this.facturasEnEspera = this.facturasEnEspera.filter(item => item.facturaData.id != factura.id);
@@ -124,6 +124,20 @@ export class PedidosComponent implements OnInit {
 
   abrirCerrarCollapse = (i: number) => {
     this.facturasEnProgreso[i].ariaExpanded = !this.facturasEnProgreso[i].ariaExpanded;
+  }
+
+  confirmarPedido = (factura: Factura) => {
+    factura.estado = 'EN CAMINO';
+
+    const payload = {
+      token: localStorage.getItem('token'),
+      factura
+    }
+
+    console.log(payload);
+    
+
+    // TODO: this.socket.emit('confirmar-pedido', payload)
   }
 
   
